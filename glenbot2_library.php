@@ -10,7 +10,7 @@
 # 20181201T0149Z: this library will now be available at https://foundation.glencooper.com/glenbot2_library.phps
 # 20181201T0201Z: changed permanent address to https://foundation.glencooper.com/glenbot2_library.txt so it can be more easily viewed in any browser
 # 20181207T1738Z: this library file is now shared on github!  Repository URL = https://github.com/GlenCooper/glenbot2_library
-###
+#
 
 if(!isset($colors))
 {
