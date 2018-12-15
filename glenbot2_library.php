@@ -10,6 +10,7 @@
 # 20181201T0149Z: this library will now be available at https://foundation.glencooper.com/glenbot2_library.phps
 # 20181201T0201Z: changed permanent address to https://foundation.glencooper.com/glenbot2_library.txt so it can be more easily viewed in any browser
 # 20181207T1738Z: this library file is now shared on github!  Repository URL = https://github.com/GlenCooper/glenbot2_library
+# 20181215T0235Z: continued converting old pointcodes to timestamps.glencooper.com format... still not done yet
 #
 
 if(!isset($colors))
@@ -4206,14 +4207,14 @@ if(!function_exists('echocolor'))
           {
             echo "ERROR: Unable to open logfile \"$log_output_to_filename\" for appending!\n";
             echo "Script aborted.\n";
-            echo "POINTCODE: 201004061104\n";
+            echo "POINTCODE: 20100406T1604Z\n";
             exit;
           }
           if(fwrite($handle,$ech)===FALSE)
           {
             echo "ERROR.  Unable to write data to logfile \"$log_output_to_filename\".\n";
             echo "Script aborted.\n";
-            echo "POINTCODE: 201004061106\n";
+            echo "POINTCODE: 20100406T1106Z\n";
             exit;
           }
           fclose($handle);
@@ -4275,31 +4276,31 @@ function split_octets($ip)
 function cisco_config_section($cfg_lines,$start_line)
 {
   # This function will return the config lines of the section of the config of $rtr that begins with $start_line.
-  debug_msg("200604272218: function cisco_config_section(\"\$cfg_lines\",\"$start_line\") START:");
+  debug_msg("20060427T2218Z: function cisco_config_section(\"\$cfg_lines\",\"$start_line\") START:");
   $config_lines_count = count($cfg_lines);
-  debug_msg("200605272019: \$config_lines_count = \"$config_lines_count\"");
+  debug_msg("20060527T2019Z: \$config_lines_count = \"$config_lines_count\"");
   $start_line_num = FALSE;
   $start_line_search = str_replace(' ','\s',$start_line);
   $start_line_search = str_replace('/','\/',$start_line_search);
   $start_line_search = str_replace('-','\-',$start_line_search);
   $start_line_search = str_replace('>','\>',$start_line_search);
   $start_line_search = str_replace('<','\<',$start_line_search);
-  debug_msg("201402281621: \$start_line_search = \"$start_line_search\"");
+  debug_msg("20140228T1621Z: \$start_line_search = \"$start_line_search\"");
   for($i=0;$i<$config_lines_count;$i++)
   {
     $cfg_line = rtrim($cfg_lines[$i]);
-    debug_msg("200605272232: config_line # $i: \"$cfg_line\"",1000);
+    debug_msg("20060527T2232Z: config_line # $i: \"$cfg_line\"",1000);
     if(preg_match("/^$start_line_search$/",rtrim($cfg_lines[$i]),$hit))
     {
       $start_line_num = $i;
-      debug_msg("200605272213: \$start_line_num = \"$start_line_num\"");
+      debug_msg("20060527T2213Z: \$start_line_num = \"$start_line_num\"");
       break;
     }
   }
   if(!($start_line_num))
   {
-    debug_msg("200604281419: \$start_line_num is FALSE.");
-    debug_msg("201402281037: Returning FALSE from cisco_config_section(\"\$cfg_lines,\"$start_line\")...");
+    debug_msg("20060428T1419Z: \$start_line_num is FALSE.");
+    debug_msg("20140228T1037Z: Returning FALSE from cisco_config_section(\"\$cfg_lines,\"$start_line\")...");
     return FALSE;
   }
   for($i=($start_line_num+1);$i<$config_lines_count;$i++)
@@ -4307,7 +4308,7 @@ function cisco_config_section($cfg_lines,$start_line)
     if(preg_match("/^!$/",rtrim($cfg_lines[$i]),$hit))
     {
       $end_line_num = $i;
-      debug_msg("200605272238: \$end_line_num = \"$end_line_num\"");
+      debug_msg("20060527T2238Z: \$end_line_num = \"$end_line_num\"");
       break;
     }
   }
@@ -4315,7 +4316,7 @@ function cisco_config_section($cfg_lines,$start_line)
   {
     $section_lines[] = rtrim($cfg_lines[$i]);
   }
-  debug_msg("200605272248: what does the \$section_lines array look like?");
+  debug_msg("20060527T2248Z: what does the \$section_lines array look like?");
   debug_arr($section_lines,'section_lines');
   return $section_lines;
 }
@@ -4353,7 +4354,7 @@ function ech()
   {
     $no_pads = 0;
   }
-  debug_msg("200602230212: \$hush_level = \"$hush_level\"",500);
+  debug_msg("20060223T0212Z: \$hush_level = \"$hush_level\"",500);
   $num_args = func_num_args();
   $text = func_get_arg(0);
   #if(is_command_line_version())
@@ -4368,7 +4369,7 @@ function ech()
   {
     $verbose_level = 0;
   }
-  debug_msg("200704171455: \$verbose_level = \"$verbose_level\"",500);
+  debug_msg("20070417T1455Z: \$verbose_level = \"$verbose_level\"",500);
   if($num_args>2)
   {
     $hush_only = func_get_arg(2);
@@ -4380,7 +4381,7 @@ function ech()
   if($num_args>3)
   {
     $dont_pad = func_get_arg(3);
-    #debug_msg("200811031513: \$dont_pad = \"$dont_pad\"");
+    #debug_msg("20081103T1513Z: \$dont_pad = \"$dont_pad\"");
   }
   else
   {
@@ -4401,7 +4402,7 @@ function ech()
       echo "$text";
       if($dont_pad)
       {
-        #debug_msg("200811031511: \$dont_pad is TRUE");
+        #debug_msg("20081103T1511Z: \$dont_pad is TRUE");
       }
       else
       {
@@ -4419,7 +4420,7 @@ function ech()
     {
       if($dont_pad)
       {
-        #debug_msg("200811031512: \$dont_pad is TRUE");
+        #debug_msg("20081103T1512Z: \$dont_pad is TRUE");
       }
       else
       {
@@ -4437,9 +4438,9 @@ function ech()
 function tripwire($pointcode)
 {
   global $mysqlstuff,$glob;
-  debug_msg("200605280319: function tripwire(\"$pointcode\") START");
+  debug_msg("20060528T0319Z: function tripwire(\"$pointcode\") START");
   $tripwire_table_name = $glob['tripwire_table_name'];
-  debug_msg("201501151050: what does the \$mysqlstuff array look like?",1000);
+  debug_msg("20150115T1050Z: what does the \$mysqlstuff array look like?",1000);
   debug_arr($mysqlstuff,'mysqlstuff',1000);
   if(!(connect_to_mysql_database($mysqlstuff)))
   {
@@ -4447,7 +4448,7 @@ function tripwire($pointcode)
   }
   if(!(select_database("ipdesk")))
   {
-    debug_msg("200604172107: returning false",500);
+    debug_msg("20060417T2107Z: returning false",500);
     return false;
   }
 
@@ -4459,19 +4460,19 @@ function tripwire($pointcode)
   # );
 
   $sql = "SELECT * FROM $tripwire_table_name WHERE pointcode=\"$pointcode\"";
-  debug_msg("200605280308: \$sql= $sql");
+  debug_msg("20060528T0308Z: \$sql= $sql");
   $result = mysql_query($sql);
   if($result)
   {
-    debug_msg("200605280309: \$result is TRUE");
+    debug_msg("20060528T0309Z: \$result is TRUE");
   }
   else
   {
-    debug_msg("200605280310: \$result is FALSE");
+    debug_msg("20060528T0310Z: \$result is FALSE");
     return false;
   }
   $num_rows = mysql_num_rows($result);
-  debug_msg("200605280311: \$num_rows = \"$num_rows\"");
+  debug_msg("20060528T0311Z: \$num_rows = \"$num_rows\"");
   if($num_rows)
   {
     $sql = "UPDATE $tripwire_table_name SET count=count+1 WHERE pointcode=\"$pointcode\"";
@@ -4480,16 +4481,16 @@ function tripwire($pointcode)
   {
     $sql = "INSERT INTO $tripwire_table_name VALUES (\"$pointcode\",1)";
   }
-  debug_msg("200604280341: \$sql= $sql;");
+  debug_msg("20060428T0341Z: \$sql= $sql;");
   unset($result);
   $result = mysql_query($sql);
   if($result)
   {
-    debug_msg("200605280339: \$result is TRUE");
+    debug_msg("20060528T0339Z: \$result is TRUE");
   }
   else
   {
-    debug_msg("200605280340: \$result is FALSE");
+    debug_msg("20060528T0340Z: \$result is FALSE");
     return false;
   }
 }
@@ -4525,26 +4526,26 @@ function h1($text)
 function in_multi_array($search_str, $multi_array)
 {
   global $debug_on,$colors;
-  debug_msg("200505041532: function in_multi_array START");
+  debug_msg("20050504T1532Z: function in_multi_array START");
   if(!(is_array($multi_array)))
   {
-    debug_msg("200505041538: is_array is FALSE.  Returning 0...");
+    debug_msg("20050504T1538Z: is_array is FALSE.  Returning 0...");
     return 0;
   }
   if(in_array($search_str, $multi_array))
   {
-    debug_msg("200505041536: in_array is TRUE.  Returning 1...");
+    debug_msg("20050504T1536Z: in_array is TRUE.  Returning 1...");
     return 1;
   }
   foreach($multi_array as $key => $value)
   {
     if(is_array($value))
     {
-      debug_msg("200505041539: is_array($value) is TRUE.");
+      debug_msg("20050504T1539Z: is_array($value) is TRUE.");
       $found = in_multi_array($search_str, $value);
       if($found)
       {
-        debug_msg("200505041535: \$found is TRUE.  Returning 1...");
+        debug_msg("20050504T1535Z: \$found is TRUE.  Returning 1...");
         return 1;
       }
     }
@@ -4552,7 +4553,7 @@ function in_multi_array($search_str, $multi_array)
     {
       if($key === $search_str)
       {
-        debug_msg("200505041534: \$key==\$search_str // \"$key\"==\"$search_str\".");
+        debug_msg("20050504T1534Z: \$key==\$search_str // \"$key\"==\"$search_str\".");
         return 1;
       }
     }
@@ -4608,7 +4609,7 @@ function construct_remedy_result_table($results,$schema,$columns,$center,$echo_l
 
   if(!(is_array($results)))
   {
-    this_should_never_happen("200606192209");
+    this_should_never_happen("20060619T2209Z");
   }
   if($schema==='FSD:LVC')
   {
@@ -4638,7 +4639,7 @@ function construct_remedy_result_table($results,$schema,$columns,$center,$echo_l
     }
     $columns = $new_columns;
   }
-  debug_msg("200606192309: what does the \$columns array look like?");
+  debug_msg("20060619T2309Z: what does the \$columns array look like?");
   debug_arr($columns,'columns');
 
   # all of the field names below will have their timestamp values converted to a readable format
@@ -4667,8 +4668,8 @@ function construct_remedy_result_table($results,$schema,$columns,$center,$echo_l
   foreach($results as $tktnum => $data)
   {
     $output[] = "<tr>\n";
-    debug_msg("200606192307: \$tktnum = \"$tktnum\"");
-    debug_msg("200606192308: what does the \$data array look like?");
+    debug_msg("20060619T2307Z: \$tktnum = \"$tktnum\"");
+    debug_msg("20060619T2308Z: what does the \$data array look like?");
     debug_arr($data,'data');
     foreach($columns as $ord => $column)
     {
@@ -4682,21 +4683,21 @@ function construct_remedy_result_table($results,$schema,$columns,$center,$echo_l
         }
         elseif($column==='Status')
         {
-          debug_msg("200606192350: \$column = \"$column\"");
-          debug_msg("200606192351: \$value = \"$value\"");
-          debug_msg("200606200024: \$color_mode = \"$color_mode\"");
+          debug_msg("20060619T2350Z: \$column = \"$column\"");
+          debug_msg("20060619T2351Z: \$value = \"$value\"");
+          debug_msg("20060620T0024Z: \$color_mode = \"$color_mode\"");
           if($color_mode===1)
           {
-            debug_msg("200606200023: \$color_mode is 1.");
+            debug_msg("20060620T0023Z: \$color_mode is 1.");
             if(($value==='6')||($value==='9'))
             {
-              debug_msg("200606200021: \$value is 6.");
+              debug_msg("20060620T0021Z: \$value is 6.");
               $bgcolor = $colors['ltgreen'];
-              debug_msg("200606200033: \$bgcolor = \"$bgcolor\"");
+              debug_msg("20060620T0033Z: \$bgcolor = \"$bgcolor\"");
             }
             else
             {
-              debug_msg("200606200022: \$value is not 6.");
+              debug_msg("20060620T0022Z: \$value is not 6.");
               $bgcolor = $colors['ltred'];
             }
             
@@ -4706,7 +4707,7 @@ function construct_remedy_result_table($results,$schema,$columns,$center,$echo_l
         $output_line = "<td";
         if($bgcolor)
         {
-          debug_msg("200606200030: adding color to cell...");
+          debug_msg("20060620T0030Z: adding color to cell...");
           $output_line.=" bgcolor=\"$bgcolor\"";
         }
         $output_line.= ">";
@@ -4751,15 +4752,15 @@ function construct_remedy_result_table($results,$schema,$columns,$center,$echo_l
 
 function unix_timestamp_of($time_string)
 {
-  debug_msg("200704101119: function unix_timestamp_of(\"$time_string\") START:",500);
+  debug_msg("20070410T1119Z: function unix_timestamp_of(\"$time_string\") START:",500);
   if($time_string === 'Wed Dec 31 19:00:00 1969')
   {
     return 0;
   }
   $cmd = "php -q /home/gcooper/shared/scripts/php/timestamp/timestamp.php \"$time_string\"";
-  debug_msg("200704101203: \$cmd = \"$cmd\"",500);
+  debug_msg("20070410T1203Z: \$cmd = \"$cmd\"",500);
   $output = run_command($cmd,1,1);
-  debug_msg("200704101204: what does the \$output array look like?",100);
+  debug_msg("20070410T1204Z: what does the \$output array look like?",100);
   debug_arr($output,'output',100);
   $pattern = "/^Unix Timestamp: (\d+)/";
   foreach($output as $ord => $line)
@@ -4767,19 +4768,19 @@ function unix_timestamp_of($time_string)
     if(preg_match($pattern,$line,$hit))
     {
       $unix_timestamp = $hit[1];
-      debug_msg("200704101120: returning \"$unix_timestamp\" from unix_timestamp_of(\"$time_string\")...",100);
+      debug_msg("20070410T1120Z: returning \"$unix_timestamp\" from unix_timestamp_of(\"$time_string\")...",100);
       return $unix_timestamp;
     }
   }
-  debug_msg("200704101204: ut oh, this can't be good...");
-  this_should_never_happen("200704101205");
+  debug_msg("20070410T1204Z: ut oh, this can't be good...");
+  this_should_never_happen("20070410T1205Z");
 }
 
 function extract_acls_from_cisco_config($config_lines)
 {
   # This function will run thru every line of a Cisco config (passed in $config_lines array)
   # and extract all of the access-lists into one multi-dimensional array and then return it.
-  debug_msg("200704271735: function import_acls_into_array START");
+  debug_msg("20070427T1735Z: function import_acls_into_array START");
   if(!(is_array($config_lines)))
   {
     return false;
@@ -4792,10 +4793,10 @@ function extract_acls_from_cisco_config($config_lines)
   {
     if(preg_match($pattern_numbered,$line,$hit))
     {
-      debug_msg("200704272218: \$line = \"$line\"");
-      debug_msg("200704272216: matched numbered ACL pattern.");
+      debug_msg("20070427T2218Z: \$line = \"$line\"");
+      debug_msg("20070427T2216Z: matched numbered ACL pattern.");
       $aclname = $hit[1];
-      debug_msg("200704272217: \$aclname = \"$aclname\"");
+      debug_msg("20070427T2217Z: \$aclname = \"$aclname\"");
       $permit_or_deny_part = $hit[2];
       if(($aclname>=1 && $aclname <=99) || ($aclname>=1300 && $aclname<=1999))
       {
@@ -4811,19 +4812,19 @@ function extract_acls_from_cisco_config($config_lines)
     elseif(preg_match($pattern_extended_named,$line,$hit))
     {
       $aclname = $hit[1];
-      debug_msg("200704272213: extended \$aclname = \"$aclname\"");
+      debug_msg("20070427T2213Z: extended \$aclname = \"$aclname\"");
       $type = 'extended';
     }
     elseif(preg_match($pattern_standard_named,$line,$hit))
     {
       $aclname = $hit[1];
-      debug_msg("200704232214: standard \$aclname = \"$aclname\"");
+      debug_msg("20070423T2214Z: standard \$aclname = \"$aclname\"");
       $type = 'standard';
     }
     elseif(preg_match($pattern_good_stuff,$line,$hit))
     {
       $good_stuff_match = $hit[1];
-      debug_msg("200704272220: \$good_stuff_match = \"$good_stuff_match\"");
+      debug_msg("20070427T2220Z: \$good_stuff_match = \"$good_stuff_match\"");
       $acl["$aclname"]['type'] = $type;
       $acl["$aclname"]['acl'][] = $good_stuff_match;
     }
@@ -4836,7 +4837,7 @@ function ordinal_suffix($value, $sup = 0)
 // Function written by Marcus L. Griswold (vujsa)
 // Found at http://www.handyphp.com
 
-    #debug_msg("200704280111: \$value = \"$value\"");
+    #debug_msg("20070428T0111Z: \$value = \"$value\"");
     is_numeric($value) or trigger_error("<b>\"$value\"</b> is not a number!, The value must be a number in the function <b>ordinal_suffix()</b>", E_USER_ERROR);
     if(substr($value, -2, 2) == 11 || substr($value, -2, 2) == 12 || substr($value, -2, 2) == 13){
         $suffix = "th";
@@ -4861,18 +4862,18 @@ function ordinal_suffix($value, $sup = 0)
 
 function use_curl()
 {
-  debug_msg("200705031403: function use_curl() START");
+  debug_msg("20070503T1403Z: function use_curl() START");
   # arguments:
   # arg 0: $url
   # arg 1: if TRUE, $result will be an array of lines.
   #        if FALSE, $result will be all of the response in one variable.
   # arg 2: $post_data (if TRUE and array, the values will be sent via POST)
   $num_args = func_num_args();
-  debug_msg("200705031404: \$num_args = \"$num_args\"");
+  debug_msg("20070503T1404Z: \$num_args = \"$num_args\"");
   if($num_args>0)
   {
     $url = func_get_arg(0);
-    debug_msg("200705031405: \$url = \"$url\"");
+    debug_msg("20070503T1405Z: \$url = \"$url\"");
     $ch = curl_init("$url");
   }
   if($num_args>1)
@@ -4880,7 +4881,7 @@ function use_curl()
     $return_array = func_get_arg(1);
     if($return_array)
     {
-      debug_msg("200705031406: results from curl will be returned as an array of result lines.");
+      debug_msg("20070503T1406Z: results from curl will be returned as an array of result lines.");
       curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
     }
   }
@@ -4898,7 +4899,7 @@ function use_curl()
   }
   else
   {
-    debug_msg("200705031407: \$post_data is FALSE");
+    debug_msg("20070503T1407Z: \$post_data is FALSE");
   }
   if($url)
   {
@@ -4938,20 +4939,20 @@ function validate_path($path)
 {
   # This function checks each directory in $path to see if it exists, and is readable.  If it does not exist,
   # the validate_dir fuction will attempt to create it with permissions 777 (drwxrwxrwx).
-  debug_msg("200807080252: function validate_path(\"$path\") START:",1000);
+  debug_msg("20080708T0252Z: function validate_path(\"$path\") START:",1000);
   $dirname = '';
   $dirs = split('/',$path);
   if(is_array($dirs))
   {
-    debug_msg("200807021612: what does the \$dirs array look like?",1000);
+    debug_msg("20080702T1612Z: what does the \$dirs array look like?",1000);
     debug_arr($dirs,'dirs',1000);
     foreach($dirs as $ord => $dir)
     {
       if($dir)
       {
-        debug_msg("200807050457: \$dir = \"$dir\"",1000);
+        debug_msg("20080705T0457Z: \$dir = \"$dir\"",1000);
         $dirname .= "/" . $dir;
-        debug_msg("200807050458: \$dirname = \"$dirname\"",1000);
+        debug_msg("20080705T0458Z: \$dirname = \"$dirname\"",1000);
         if(validate_dir($dirname))
         {
           $all_directories_validated = 1;
@@ -4965,12 +4966,12 @@ function validate_path($path)
     }
     if($all_directories_validated)
     {
-      debug_msg("200807080336: \$all_directories_validated is TRUE",1000);
+      debug_msg("20080708T0336Z: \$all_directories_validated is TRUE",1000);
       return true;
     }
     else
     {
-      debug_msg("200807080337: \$all_directories_validated is FALSE",1000);
+      debug_msg("20080708T0337Z: \$all_directories_validated is FALSE",1000);
       return true;
     }
   }
@@ -4983,37 +4984,37 @@ function validate_dir($dir)
   # this function checks to see if $dir exists.  if not, it will create it with permissions 777 (drwxrwxrwx)
   if(is_dir($dir))
   {
-    debug_msg("200807021523: is_dir(\"$dir\") is TRUE",1000);
+    debug_msg("20080702T1523Z: is_dir(\"$dir\") is TRUE",1000);
     if(is_readable($dir))
     {
-      debug_msg("200807021534: is_readable(\"$dir\") is TRUE",1000);
+      debug_msg("20080702T1534Z: is_readable(\"$dir\") is TRUE",1000);
       return true;
     }
     else
     {
-      debug_msg("200807021534: is_readable(\"$dir\") is FALSE",1000);
+      debug_msg("20080702T1534Z: is_readable(\"$dir\") is FALSE",1000);
       return FALSE;
     }
   }
   else
   {
-    debug_msg("200807021523: is_dir(\"$dir\") is FALSE",1000);
+    debug_msg("20080702T1523Z: is_dir(\"$dir\") is FALSE",1000);
     if(file_exists($dir))
     {
       ech("<font color=\"red\">ERROR.  \"$dir\" is supposed to be a directory, but there's already a file by that name.</font><br>\n");
-      script_abort("200807021519");
+      script_abort("20080702T1519Z");
     }
     else
     {
-      debug_msg("200807021651: \$dir = \"$dir\"",1000);
+      debug_msg("20080702T1651Z: \$dir = \"$dir\"",1000);
       $pattern = "/^(\/.+)\/.+$/";
       if(preg_match($pattern,$dir,$hit))
       {
         $before_path = $hit[1];
-        debug_msg("200807021655: \$before_path = \"$before_path\"",1000);
+        debug_msg("20080702T1655Z: \$before_path = \"$before_path\"",1000);
         if(is_writable($before_path))
         {
-          debug_msg("200807021700: is_writable(\"$before_path\") is TRUE",1000);
+          debug_msg("20080702T1700Z: is_writable(\"$before_path\") is TRUE",1000);
         }
         else
         {
@@ -5022,32 +5023,32 @@ function validate_dir($dir)
           ech("It appears the above path exists, but is not writable by the username that this script is running under.<br>\n");
           ech("Unless something major has changed since the LVC Builder Script was created, the PHP process should run under the username \"apache\".<br>\n");
           ech("</font>\n");
-          ech("POINTCODE: 200807080248<br>\n");
+          ech("POINTCODE: 20080708T0248Z<br>\n");
           exit;
         }
       }
       else
       {
-        debug_msg("200707021656: WARNING: Unable to extract \$before_path from \$dir!");
+        debug_msg("20070702T1656Z: WARNING: Unable to extract \$before_path from \$dir!");
       }
       if(mkdir($dir,0777))
       {
-        debug_msg("200807021522: mkdir(\"$dir\",0777) succeeded.");
-        debug_msg("200807081700: chmod'ing \"$dir\" to 777...");
+        debug_msg("20080702T1522Z: mkdir(\"$dir\",0777) succeeded.");
+        debug_msg("20080708T1700Z: chmod'ing \"$dir\" to 777...");
         if(chmod($dir,0777))
         {
-          debug_msg("200807081703: chmod command was successful.");
-          debug_msg("200807021525: returning TRUE from validate_dir(\"$dir\")...");
+          debug_msg("20080708T1703Z: chmod command was successful.");
+          debug_msg("20080702T1525Z: returning TRUE from validate_dir(\"$dir\")...");
           return TRUE;
         }
         else
         {
-          debug_msg("200807081702: chmod command was unsuccessful.");
+          debug_msg("20080708T1702Z: chmod command was unsuccessful.");
         }
       }
       else
       {
-        debug_msg("200807021521: unable to mkdir(\"$dir\",0777)!");
+        debug_msg("20080702T1521Z: unable to mkdir(\"$dir\",0777)!");
         ech("<font color=\"red\">ERROR.  Unable to create directory \"$dir\".</font><br>\n");
       }
     }
