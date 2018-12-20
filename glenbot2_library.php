@@ -545,13 +545,13 @@ function get_command_line_options()
       {
         $debug_on = 1;
       }
-      debug_msg("200602222250: Debug mode enabled.");
-      debug_msg("200602222241: debug level is $debug_on.");
+      debug_msg("20060222T2250Z: Debug mode enabled.");
+      debug_msg("20060222T2241Z: debug level is $debug_on.");
       if($debug_on==1)
       {
-        debug_msg("200602222242: To see more debug output, increase the debug level:");
-        debug_msg("200602222243: level 1 = least debug output, level 1000 = most debug output");
-        debug_msg("200602222244: command-line param syntax to set debug level to 1000: -debug=1000");
+        debug_msg("20060222T2242Z: To see more debug output, increase the debug level:");
+        debug_msg("20060222T2243Z: level 1 = least debug output, level 1000 = most debug output");
+        debug_msg("20060222T2244Z: command-line param syntax to set debug level to 1000: -debug=1000");
       }
     }
     $options[] = $argv;
