@@ -11,6 +11,7 @@
 # 20181201T0201Z: changed permanent address to https://foundation.glencooper.com/glenbot2_library.txt so it can be more easily viewed in any browser
 # 20181207T1738Z: this library file is now shared on github!  Repository URL = https://github.com/GlenCooper/glenbot2_library
 # 20181215T0235Z: continued converting old pointcodes to timestamps.glencooper.com format... still not done yet
+# 20181220T0548Z: made CLI functionality work better
 #
 
 if(!isset($colors))
@@ -531,7 +532,7 @@ function get_command_line_options()
     {
       if(isset($hit))
       {
-        if($hit[2])
+        if(isset($hit[2]))
         {
           $debug_on = $hit[2];
         }
