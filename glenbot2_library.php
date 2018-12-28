@@ -2757,13 +2757,14 @@ function debug_analyze_ip()
 
 function define_PHP_SELF()
 {
+  # 20181228T0528Z: somehow I got looking into this function.  It doesn't really make sense to have a function for this.  As far as I know now, this isn't being used anywhere.  Maybe someday eliminate this...
   $PHP_SELF = $_SERVER['PHP_SELF'];
-  debug_msg("200507080439: \$PHP_SELF = \"$PHP_SELF\"");
+  debug_msg("20050708T0439Z: \$PHP_SELF = \"$PHP_SELF\"");
   if(preg_match("/(.+)\/index.php$/",$PHP_SELF,$hit))
   {
-    debug_msg("200603011538: index.php dropped from PHP_SELF.");
+    debug_msg("20060301T1538Z: index.php dropped from PHP_SELF.");
     $new_PHP_SELF = $hit[1].'/';
-    debug_msg("200603011539: \$new_PHP_SELF = \"$new_PHP_SELF\"");
+    debug_msg("20060301T1539Z: \$new_PHP_SELF = \"$new_PHP_SELF\"");
     return $new_PHP_SELF;
   }
   return $PHP_SELF;
