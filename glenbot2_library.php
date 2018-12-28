@@ -12,6 +12,7 @@
 # 20181207T1738Z: this library file is now shared on github!  Repository URL = https://github.com/GlenCooper/glenbot2_library
 # 20181215T0235Z: continued converting old pointcodes to timestamps.glencooper.com format... still not done yet
 # 20181220T0548Z: made CLI functionality work better
+# 20181228T0534Z: trying to do anything useful
 #
 
 if(!isset($colors))
