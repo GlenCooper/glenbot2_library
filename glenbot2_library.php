@@ -15,7 +15,8 @@
 # 20181228T0534Z: trying to do anything useful
 # 20190108T0438Z: Been busy cleaning up... my act, my attitude, the apartment I moved into, and a couple ancient POINTCODEs
 # 20190108T0506Z: built a new subdomain & webpage recently... since it was a historic moment in my life: https://lastdrink.glencooper.com/
-# 20190108T0928Z: converted a lot of the alias over to a more easily updatable bash script, currently named "/home/mreth/bin/mylib", an executable bash shell script
+# 20190108T0928Z: converted a lot of the aliases over to a more easily updatable bash script, currently named "/home/mreth/bin/mylib", an executable bash shell script
+# 20190108T1032Z: renamed /home/mreth/bin/mylib to /home/mreth/bin/mylib.sh, and made a symlink so simply typing "mylib" will still launch mylib.sh...
 #
 
 if(!isset($colors))
@@ -136,7 +137,7 @@ function is_valid_net_ipv4_parse_address($cidr)
 function is_valid_ip_v2($ip=FALSE,$which_value='',$silent_mode=FALSE)
 {
   # This function was written to replace the original "is_valid_ip" function which used global variables.
-  # This function was modified 201208031344 such that if an IP like "10.27.30.07" is passed to it, it
+  # This function was modified 20120803T1344Z such that if an IP like "10.27.30.07" is passed to it, it
   # will return the syntactically correct "10.27.30.7" instead.
   $colors = define_colors();
   $green = $colors['green'];
@@ -147,7 +148,7 @@ function is_valid_ip_v2($ip=FALSE,$which_value='',$silent_mode=FALSE)
     {
       echocolor("FATAL ERROR!\n",'light_red');
       echocolor("Script aborted!\n",'light_red');
-      echocolor("POINTCODE: 201202211328\n",'light_red');
+      echocolor("POINTCODE: 20181008T1008Z\n",'light_red');
     }
     else
     {
@@ -197,7 +198,7 @@ function is_valid_ip_v2($ip=FALSE,$which_value='',$silent_mode=FALSE)
     }
     if(count($octets)!=4)
     {
-      debug_msg("200505052214: count(\$octets) != 4.  Returning false.");
+      debug_msg("20050505T2214Z: count(\$octets) != 4.  Returning false.");
       return false;
     }
     $octets_count = count($octets);
@@ -677,7 +678,7 @@ function select_all_and_copy_javascript_header_zeroclipboard()
 {
   # NOTE: This function ABSOLUTELY REQUIRES that the ZeroClipboard.js file exists at http://nocweb.corp.tnsi.com/imps/scripts/lvcbuilder/ZeroClipboard.js
   #                                 *** AND *** the ZeroClipboard.swf file exists at http://nocweb.corp.tnsi.com/imps/scripts/lvcbuilder/ZeroClipboard.swf
-  # As of 201201171649 when this function was added, the ZeroClipboard website was online at http://code.google.com/p/zeroclipboard/
+  # As of 20120117T1649Z when this function was added, the ZeroClipboard website was online at http://code.google.com/p/zeroclipboard/
   # In case it disappears, the original tarball for v1.0.7 is saved to nocweb:/var/www/html/imps/scripts/lvcbuilder/zeroclipboard-1.0.7.tar.gz
   echo "<style type=\"text/css\">\n";
   echo "  body { font-family:arial,sans-serif; font-size:9pt; }\n";
