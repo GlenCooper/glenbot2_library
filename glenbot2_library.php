@@ -13,7 +13,9 @@
 # 20181215T0235Z: continued converting old pointcodes to timestamps.glencooper.com format... still not done yet
 # 20181220T0548Z: made CLI functionality work better
 # 20181228T0534Z: trying to do anything useful
-# 20190108T0438Z: Been busy cleaning up... my act, my attitude, the apartment I moved into, and a couple ancient POINTCODEs..
+# 20190108T0438Z: Been busy cleaning up... my act, my attitude, the apartment I moved into, and a couple ancient POINTCODEs
+# 20190108T0506Z: built a new subdomain & webpage recently... since it was a historic moment in my life: https://lastdrink.glencooper.com/
+# 20190108T0928Z: converted a lot of the alias over to a more easily updatable bash script, currently named "/home/mreth/bin/mylib", an executable bash shell script
 #
 
 if(!isset($colors))
