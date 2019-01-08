@@ -13,6 +13,7 @@
 # 20181215T0235Z: continued converting old pointcodes to timestamps.glencooper.com format... still not done yet
 # 20181220T0548Z: made CLI functionality work better
 # 20181228T0534Z: trying to do anything useful
+# 20190108T0438Z: Been busy cleaning up... my act, my attitude, the apartment I moved into, and a couple ancient POINTCODEs
 #
 
 if(!isset($colors))
@@ -149,7 +150,7 @@ function is_valid_ip_v2($ip=FALSE,$which_value='',$silent_mode=FALSE)
     else
     {
       ech("<font color=\"$red\">FATAL ERROR!<br>Script aborted!</font><br>\n");
-      ech("<font color=\"$red\">POINTCODE: 201202061609</font>\n");
+      ech("<font color=\"$red\">POINTCODE: 20120206T1609Z</font>\n");
     }
     exit;
   }
@@ -1403,7 +1404,7 @@ function newest_file()
     echo "and returns the name of whichever file is the newest.\n";
     echo "\n";
     echo "Chances are you were trying to run a script on an invalid filename.\n";
-    echo "POINTCODE: 200511180132\n";
+    echo "POINTCODE: 20051118T0132Z\n";
     exit;
   }
   foreach($table as $filename => $timestamp)
@@ -3620,7 +3621,7 @@ function remedy_query()
           $mytime = date("YmdHis");  # Format: 201008051034
           echocolor("Script aborted.\n",'light_red');
           echocolor("Aborted timestamp: $mytime\n",'light_red');
-          echocolor("POINTCODE: 200904020352\n",'light_red');
+          echocolor("POINTCODE: 20090402T0352Z\n",'light_red');
           exit(1);
         }
         else
@@ -3634,7 +3635,7 @@ function remedy_query()
         echo "ERROR!  Unable to log into remedy.<br>\n";
         echo "$line<br>\n";
         echo "Script aborted.<br>\n";
-        echo "POINTCODE: 200904020350<br>\n";
+        echo "POINTCODE: 20090402T0350Z<br>\n";
         echo "</font>\n";
         exit(1);
       }
@@ -3688,7 +3689,7 @@ function remedy_query()
       if($exit_on_failure)
       {
         echocolor("Script aborted.\n",'light_red');
-        echocolor("POINTCODE: 200902041020\n",'light_red');
+        echocolor("POINTCODE: 20090204T1020Z\n",'light_red');
         exit(1);
       }
       else
@@ -3710,7 +3711,7 @@ function remedy_query()
         echo "Remedy Username: $aborted_on_Remedy_Username<br>\n";
       }
       echo "Script aborted.<br>\n";
-      echo "POINTCODE: 200902031705<br>\n";
+      echo "POINTCODE: 20090203T1705Z<br>\n";
       echo "</font>\n";
       exit(1);
     }
