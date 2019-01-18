@@ -17,6 +17,7 @@
 # 20190108T0506Z: built a new subdomain & webpage recently... since it was a historic moment in my life: https://lastdrink.glencooper.com/
 # 20190108T0928Z: converted a lot of the aliases over to a more easily updatable bash script, currently named "/home/mreth/bin/mylib", an executable bash shell script
 # 20190108T1032Z: renamed /home/mreth/bin/mylib to /home/mreth/bin/mylib.sh, and made a symlink so simply typing "mylib" will still launch mylib.sh...
+# 20190118T0634Z: met 1MitchK
 #
 
 if(!isset($colors))
@@ -87,14 +88,14 @@ function convert_all_arr_elements_to_html_special($arr)
   {
     if(is_array($val))
     {
-      debug_msg("200603010038: is_array(\"$var\") is TRUE");
-      debug_msg("200603010041: NOTE: This part still needs to be written!!!");
+      debug_msg("20060301T0038Z: is_array(\"$var\") is TRUE");
+      debug_msg("20060301T0041Z: NOTE: This part still needs to be written!!!");
       return $arr;
       #$new_arr["$var"] = array();
     }
     else
     {
-      debug_msg("200603010039: is_array(\"$var\") is FALSE",1000);
+      debug_msg("20060301T0039Z: is_array(\"$var\") is FALSE",1000);
       $new_arr["$var"] = htmlspecialchars($val);
     }
   }
@@ -398,9 +399,9 @@ if(!(function_exists('debug_arr')))
         }
         if($html_special)
         {
-          debug_msg("200603010030: next line will call convert_all_arr_elements_to_html_special(\$arr)...",1000);
+          debug_msg("20060301T0030Z: next line will call convert_all_arr_elements_to_html_special(\$arr)...",1000);
           $html_special_arr = convert_all_arr_elements_to_html_special($arr);
-          debug_msg("200603010031: done with convert_all_arr_elements_to_html_special(\$arr).",1000);
+          debug_msg("20060301T0031Z: done with convert_all_arr_elements_to_html_special(\$arr).",1000);
           print_r($html_special_arr);
         }
         else
@@ -1482,16 +1483,16 @@ function is_permitted()  # NOTE: This function has been replaced with is_permitt
   }
   elseif(preg_match($nw_nw_pattern,$statement,$matches))
   {
-    debug_msg("200712180400: access-list list statement is network to network type.",100);
+    debug_msg("20071218T0400Z: access-list list statement is network to network type.",100);
     $source_network = $matches[3];
-    debug_msg("200602221857: \$source_network = \"$source_network\"",100);
+    debug_msg("20060222T1857Z: \$source_network = \"$source_network\"",100);
     $source_netmask = $matches[4];
-    debug_msg("200602221858: \$source_netmask = \"$source_netmask\"",100);
+    debug_msg("20060222T1858Z: \$source_netmask = \"$source_netmask\"",100);
     $dest_network = $matches[5];
-    debug_msg("200602221859: \$dest_network = \"$dest_network\"",100);
+    debug_msg("20060222T1859Z: \$dest_network = \"$dest_network\"",100);
     $dest_netmask = $matches[6];
-    debug_msg("200602221900: \$dest_netmask = \"$dest_netmask\"",100);
-    debug_msg("200603272000: next line will call if(analyze_ip(\"$source_network\",\"$source_netmask\")...",100);
+    debug_msg("20060222T1900Z: \$dest_netmask = \"$dest_netmask\"",100);
+    debug_msg("20060327T2000Z: next line will call if(analyze_ip(\"$source_network\",\"$source_netmask\")...",100);
     if(analyze_ip($source_network,$source_netmask,1))
     {
       debug_msg("200504062205: analyze_ip is TRUE",100);
