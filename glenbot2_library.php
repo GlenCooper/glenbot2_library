@@ -18,6 +18,7 @@
 # 20190108T0928Z: converted a lot of the aliases over to a more easily updatable bash script, currently named "/home/mreth/bin/mylib", an executable bash shell script
 # 20190108T1032Z: renamed /home/mreth/bin/mylib to /home/mreth/bin/mylib.sh, and made a symlink so simply typing "mylib" will still launch mylib.sh...
 # 20190118T0634Z: met 1MitchK
+# 20190204T0313Z: I'm still alive...
 #
 
 if(!isset($colors))
@@ -357,10 +358,10 @@ if(!(function_exists('debug_arr')))
     {
       if(is_command_line_version())
       {
-        debug_msg("200807221340: is_command_line_version() is TRUE",1000);
+        debug_msg("20080722T1340Z: is_command_line_version() is TRUE",1000);
         if(isset($arrname))
         {
-          debug_msg("200807221341: \$arrname is TRUE (\$arrname = \"$arrname\")",1000);
+          debug_msg("20080722T1341Z: \$arrname is TRUE (\$arrname = \"$arrname\")",1000);
           if(is_object($arr))
           {
             echo "print_r(get_object_vars(\$$arrname)) START:\n";
@@ -835,7 +836,7 @@ function list_of_files_in_directory()
       if(is_array(func_get_arg(8)))
       {
         $exclude_patterns = func_get_arg(8);
-        debug_msg("201003191203: what does the \$exclude_patterns array look like?");
+        debug_msg("20100319T1203Z: what does the \$exclude_patterns array look like?");
         debug_arr($exclude_patterns,'exclude_patterns');
       }
     }
