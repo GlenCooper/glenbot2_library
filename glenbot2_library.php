@@ -19,6 +19,7 @@
 # 20190108T1032Z: renamed /home/mreth/bin/mylib to /home/mreth/bin/mylib.sh, and made a symlink so simply typing "mylib" will still launch mylib.sh...
 # 20190118T0634Z: met 1MitchK
 # 20190204T0313Z: I'm still alive...
+# 20190215T0949Z: something smells fishy with blockstack browser Linux install... my CPU is SCREAMING ever since (a couple hours ago).  DO NOT INSTALL IT!
 #
 
 if(!isset($colors))
@@ -742,7 +743,7 @@ function list_of_files_in_directory()
   # 9th argument: array of patterns (regular expression format) to exclude.  Example: [0] = "/.+\.swp$/"
   # 10th argument: array of patterns of match on.  The array returned will be sorted by file modified date, most recently modified first.  Like "ls -lt pattern*"
   $num_args = func_num_args();
-  $debug_msg = "200510202000: function list_of_files_in_directory(";
+  $debug_msg = "20051020T2000Z: function list_of_files_in_directory(";
   if($num_args>0)
   {
     $dir = func_get_arg(0);
