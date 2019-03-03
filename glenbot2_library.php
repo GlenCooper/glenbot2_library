@@ -865,7 +865,7 @@ function list_of_files_in_directory()
   $lastchar = $dir[strlen($dir)-1];
   if(($lastchar==='/')||($lastchar==="\\"))
   {
-    debug_msg("200602081418: \$dir ends with a slash.");
+    debug_msg("20060208T1418Z: \$dir ends with a slash.");
   }
   else
   {
