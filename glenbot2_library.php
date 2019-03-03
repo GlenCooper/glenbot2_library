@@ -316,7 +316,7 @@ function is_valid_ip()
     }
     if(count($octets)!=4)
     {
-     debug_msg("200505052214: count(\$octets) != 4.  Returning false.");
+     debug_msg("20050505T2214Z: count(\$octets) != 4.  Returning false.");
        return false;
     }
     $octets_count = count($octets);
