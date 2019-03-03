@@ -935,14 +935,14 @@ function list_of_files_in_directory()
       {
         foreach($match_on_patterns as $pattern)
         {
-          debug_msg("201503271729: \$pattern= $pattern");
+          debug_msg("20150327T1729Z: \$pattern= $pattern");
           if(preg_match($pattern,$file))
           {
-            debug_msg("201503271730: matched pattern to file \"$file\"");
+            debug_msg("20150327T1730Z: matched pattern to file \"$file\"");
           }
           else
           {
-            debug_msg("201503271731: pattern did not match on file \"$file\"");
+            debug_msg("20150327T1731Z: pattern did not match on file \"$file\"");
             continue(2);  # skip the rest of the current outer loop iteration
           }
         }
@@ -952,7 +952,7 @@ function list_of_files_in_directory()
     closedir($handle);
     if($match_on_patterns)
     {
-      debug_msg("201503271721: \$match_on_patterns is TRUE");
+      debug_msg("20150327T1721Z: \$match_on_patterns is TRUE");
       $timestamped = array();
       foreach($files as $filename)
       {
