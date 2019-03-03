@@ -1780,7 +1780,7 @@ function is_cidr_route($x)
 function is_permitted_or_denied($source,$dest=FALSE,$statement=FALSE,$proto=FALSE,$permit_or_deny=FALSE,$standard_acl=FALSE)
 {
   global $ipaddress,$netmask,$inverse_netmask,$cidrbits,$network,$broadcast,$numhosts,$host_first,$host_last,$acloutput;
-  debug_msg("200712180720: function is_permitted_or_denied(\"$source\",\"$dest\",\"$statement\",\"$proto\",\"$permit_or_deny\",\"$standard_acl\") START:",100);
+  debug_msg("20071218T0720Z: function is_permitted_or_denied(\"$source\",\"$dest\",\"$statement\",\"$proto\",\"$permit_or_deny\",\"$standard_acl\") START:",100);
   # Initialize variables (required for PHP5)
   $source_portion_is_good = 0;
   $dest_portion_is_good = 0;
@@ -1814,16 +1814,16 @@ function is_permitted_or_denied($source,$dest=FALSE,$statement=FALSE,$proto=FALS
   {
     $permit_or_deny = 'permit';
   }
-  debug_msg("200712180715: \$permit_or_deny = \"$permit_or_deny\"",100);
-  debug_msg("200802080226: \$standard_acl = \"$standard_acl\"",500);
-  debug_msg("200712180714: ------------------------------------------------------------------------------",100);
+  debug_msg("20071218T0715Z: \$permit_or_deny = \"$permit_or_deny\"",100);
+  debug_msg("20080208T0226Z: \$standard_acl = \"$standard_acl\"",500);
+  debug_msg("20071218T0714Z: ------------------------------------------------------------------------------",100);
   if($permit_or_deny==='permit')
   {
-    debug_msg("200712180713: Checking to see if $source is permitted to pass $proto traffic to $dest through \"$statement\"...",100);
+    debug_msg("20071218T0713Z: Checking to see if $source is permitted to pass $proto traffic to $dest through \"$statement\"...",100);
   }
   else
   {
-    debug_msg("200712180712: Checking to see if $source is explicitly denied from passing $proto traffic to $dest through \"$statement\"...",100);
+    debug_msg("20071218T0712Z: Checking to see if $source is explicitly denied from passing $proto traffic to $dest through \"$statement\"...",100);
   }
 
   $host_host_pattern = "/^(access-list (\d+))? $permit_or_deny\s+$proto\s+host (\d+\.\d+\.\d+\.\d+) host (\d+\.\d+\.\d+\.\d+)( log(-input)?)?$/";
@@ -1831,7 +1831,7 @@ function is_permitted_or_denied($source,$dest=FALSE,$statement=FALSE,$proto=FALS
   $host_nw_pattern = "/^(access-list (\d+))? $permit_or_deny\s+$proto\s+host (\d+\.\d+\.\d+\.\d+) (\d+\.\d+\.\d+\.\d+) (\d+\.\d+\.\d+\.\d+)( log(-input)?)?$/";
   $nw_host_pattern = "/^(access-list (\d+))? $permit_or_deny\s+$proto\s+(\d+\.\d+\.\d+\.\d+) (\d+\.\d+\.\d+\.\d+) host (\d+\.\d+\.\d+\.\d+)( log(-input)?)?$/";
   $any_any_pattern = "/^(access-list (\d+))? $permit_or_deny(\s+)$proto any any( log(-input)?)?$/";
-  debug_msg("201503091118: \$any_any_pattern = \"$any_any_pattern\"",500);
+  debug_msg("20150309T1118Z: \$any_any_pattern = \"$any_any_pattern\"",500);
   $any_nw_pattern = "/^(access-list (\d+))? $permit_or_deny\s+$proto\s+any (\d+\.\d+\.\d+\.\d+) (\d+\.\d+\.\d+\.\d+)( log(-input)?)?$/";
   $any_host_pattern = "/^(access-list (\d+))? $permit_or_deny\s+$proto\s+any host (\d+\.\d+\.\d+\.\d+)( log(-input)?)?$/";
   $nw_any_pattern = "/^(access-list (\d+))? $permit_or_deny\s+$proto\s+(\d+\.\d+\.\d+\.\d+) (\d+\.\d+\.\d+\.\d+) any( log(-input)?)?$/";
@@ -1839,71 +1839,71 @@ function is_permitted_or_denied($source,$dest=FALSE,$statement=FALSE,$proto=FALS
   $standard_num_pattern_with_mask = "/^(access-list (\d+))? $permit_or_deny\s+(\d+\.\d+\.\d+\.\d+) (\d+\.\d+\.\d+\.\d+)$/";
   if(preg_match($host_host_pattern,$statement,$matches))
   {
-    debug_msg("200712180711: access-list statement is host-to-host type.",100);
+    debug_msg("20071218T0711Z: access-list statement is host-to-host type.",100);
     if(($matches[3]==$source) && ($matches[4]==$dest))
     {
-      debug_msg("200712180710: matched!  returning true.",100);
+      debug_msg("20071218T0710Z: matched!  returning true.",100);
       return true;
     }
     else
     {
-      debug_msg("200712180709: no match.",100);
+      debug_msg("20071218T0709Z: no match.",100);
     }
   }
   elseif(preg_match($standard_num_pattern,$statement,$matches))
   {
-    debug_msg("200806260015: access-list statement matched \$standard_num_pattern.",100);
-    debug_msg("200806260018: the dest portion will always be good on a standard numbered access-list.",100);
-    debug_msg("200806260019: setting \$dest_portion_is_good = 1...",100);
+    debug_msg("20080626T0015Z: access-list statement matched \$standard_num_pattern.",100);
+    debug_msg("20080626T0018Z: the dest portion will always be good on a standard numbered access-list.",100);
+    debug_msg("20080626T0019Z: setting \$dest_portion_is_good = 1...",100);
     $dest_portion_is_good = 1;
-    debug_msg("200806260020: \$source = \"$source\"",100);
+    debug_msg("20080626T0020Z: \$source = \"$source\"",100);
     $network_portion = $matches[3];
     $netmask_portion = '32';
     if($analyzed = analyze_ip($network_portion,$netmask_portion,1))
     {
-      debug_msg("200806260151: analyze_ip(\"$network_portion\",\"$netmask_portion\" is TRUE",100);
+      debug_msg("20080626T0151Z: analyze_ip(\"$network_portion\",\"$netmask_portion\" is TRUE",100);
     }
-    debug_msg("200806260150: what does the \$analyzed array look like?");
+    debug_msg("20080626T0150Z: what does the \$analyzed array look like?");
     debug_arr($analyzed,'analyzed');
-    debug_msg("200806260149: \$source = \"$source\"");
+    debug_msg("20080626T0149Z: \$source = \"$source\"");
     if((ip2long($source))>=(ip2long($analyzed['network'])) && (ip2long($source))<=(ip2long($analyzed['broadcast'])))
     {
-      debug_msg("200806260148: setting \$source_portion_is_good = 1!");
+      debug_msg("20080626T0148Z: setting \$source_portion_is_good = 1!");
       $source_portion_is_good = 1;
     }
   }
   elseif(preg_match($standard_num_pattern_with_mask,$statement,$matches))
   {
-    debug_msg("200806260016: access-list statement matched \$standard_num_pattern_with_mask.");
-    debug_msg("200806260018: the dest portion will always be good on a standard numbered access-list.",100);
-    debug_msg("200806260019: setting \$dest_portion_is_good = 1...",100);
+    debug_msg("20080626T0016Z: access-list statement matched \$standard_num_pattern_with_mask.");
+    debug_msg("20080626T0018Z: the dest portion will always be good on a standard numbered access-list.",100);
+    debug_msg("20080626T0019Z: setting \$dest_portion_is_good = 1...",100);
     $dest_portion_is_good = 1;
     $network_portion = $matches[3];
     $netmask_portion = $matches[4];
     if($analyzed = analyze_ip($network_portion,$netmask_portion,1))
     {
-      debug_msg("200806260025: analyze_ip(\"$network_portion\",\"$netmask_portion\" is TRUE",100);
+      debug_msg("20080626T0025Z: analyze_ip(\"$network_portion\",\"$netmask_portion\" is TRUE",100);
     }
-    debug_msg("200806260027: what does the \$analyzed array look like?");
+    debug_msg("20080626T0027Z: what does the \$analyzed array look like?");
     debug_arr($analyzed,'analyzed');
-    debug_msg("200806260030: \$source = \"$source\"");
+    debug_msg("20080626T0030Z: \$source = \"$source\"");
     if((ip2long($source))>=(ip2long($analyzed['network'])) && (ip2long($source))<=(ip2long($analyzed['broadcast'])))
     {
-      debug_msg("200806260032: setting \$source_portion_is_good = 1!");
+      debug_msg("20080626T0032Z: setting \$source_portion_is_good = 1!");
       $source_portion_is_good = 1;
     }
   }
   elseif(preg_match($any_host_pattern,$statement,$matches))
   {
-    debug_msg("200908201528: matched \$any_host_pattern!",100);
+    debug_msg("20090820T1528Z: matched \$any_host_pattern!",100);
     # the source portion will always be good on an any-to-host permit statement.
     $source_portion_is_good = 1;
 
     $dest_host = $matches[3];
-    debug_msg("200908201533: \$dest_host = \"$dest_host\"",100);
+    debug_msg("20090820T1533Z: \$dest_host = \"$dest_host\"",100);
     if($dest_ip)
     {
-      debug_msg("200908201535: \$dest_ip is TRUE.  This means the dest is CIDR notation.");
+      debug_msg("20090820T1535Z: \$dest_ip is TRUE.  This means the dest is CIDR notation.");
       if($dest_nm==='32')
       {
         $dest = $dest_ip;
@@ -1911,20 +1911,20 @@ function is_permitted_or_denied($source,$dest=FALSE,$statement=FALSE,$proto=FALS
     }
     if($dest===$dest_host)
     {
-      debug_msg("200908201534: looks good!",100);
+      debug_msg("20090820T1534Z: looks good!",100);
       $dest_portion_is_good = 1;
     }
   }
   elseif(preg_match($nw_any_pattern,$statement,$matches))
   {
-    debug_msg("201109141537: matched \$nw_any_pattern!",100);
+    debug_msg("20110914T1537Z: matched \$nw_any_pattern!",100);
     # the dest portion will always be good on a network-to-any permit statement.
     $dest_portion_is_good = 1;
 
     $source_network = $matches[3];
-    debug_msg("200712180707: \$source_network = \"$source_network\"",100);
+    debug_msg("20071218T0707Z: \$source_network = \"$source_network\"",100);
     $source_netmask = $matches[4];
-    debug_msg("200712180706: \$source_netmask = \"$source_netmask\"",100);
+    debug_msg("20071218T0706Z: \$source_netmask = \"$source_netmask\"",100);
 
     require_once('Net/IPv4.php');
     // create IPv4 object
@@ -1934,32 +1934,32 @@ function is_permitted_or_denied($source,$dest=FALSE,$statement=FALSE,$proto=FALS
     $ip_calc->ip = $source;
     $normal_netmask = inverse_netmask_to_netmask($source_netmask);
     $cidr = bitmask_from_netmask($normal_netmask);
-    debug_msg("201403071627: \$cidr = \"$cidr\"");
+    debug_msg("20140307T1627Z: \$cidr = \"$cidr\"");
     $net1 = "$source_network/$cidr";
-    debug_msg("201403071628: \$net1 = \"$net1\"");
-    debug_msg("201403071630: \$source = \"$source\"");
+    debug_msg("20140307T1628Z: \$net1 = \"$net1\"");
+    debug_msg("20140307T1630Z: \$source = \"$source\"");
     $in_range = Net_IPv4::ipInNetwork($source,$net1);
-    debug_msg("201403071631: \$in_range = \"$in_range\"");
+    debug_msg("20140307T1631Z: \$in_range = \"$in_range\"");
     if($in_range)
     {
-      debug_msg("201403051639: source ip is within the range",100);
+      debug_msg("20140305T1639Z: source ip is within the range",100);
       $source_portion_is_good = 1;
     }
     else
     {
-      debug_msg("201403051629: source portion is not within the range!",100);
+      debug_msg("20140305T1629Z: source portion is not within the range!",100);
     }
   }
   elseif(preg_match($any_nw_pattern,$statement,$matches))
   {
-    debug_msg("200712180708: matched \$any_nw_pattern!",100);
+    debug_msg("20071218T0708Z: matched \$any_nw_pattern!",100);
     # the source portion will always be good on an any-to-network permit statement.
     $source_portion_is_good = 1;
 
     $dest_network = $matches[3];
-    debug_msg("200712180707: \$dest_network = \"$dest_network\"",100);
+    debug_msg("20071218T0707Z: \$dest_network = \"$dest_network\"",100);
     $dest_netmask = $matches[4];
-    debug_msg("200712180706: \$dest_netmask = \"$dest_netmask\"",100);
+    debug_msg("20071218T0706Z: \$dest_netmask = \"$dest_netmask\"",100);
     require_once('Net/IPv4.php');
     // create IPv4 object
     $ip_calc = new Net_IPv4();
@@ -1968,60 +1968,60 @@ function is_permitted_or_denied($source,$dest=FALSE,$statement=FALSE,$proto=FALS
     $ip_calc->ip = $dest;
     $normal_netmask = inverse_netmask_to_netmask($dest_netmask);
     $cidr = bitmask_from_netmask($normal_netmask);
-    debug_msg("201407082202: \$cidr = \"$cidr\"");
+    debug_msg("20140708T2202Z: \$cidr = \"$cidr\"");
     $net1 = "$dest_network/$cidr";
-    debug_msg("201407082203: \$net1 = \"$net1\"");
-    debug_msg("201407082204: \$dest = \"$dest\"");
+    debug_msg("20140708T2203Z: \$net1 = \"$net1\"");
+    debug_msg("20140708T2204Z: \$dest = \"$dest\"");
     $in_range = Net_IPv4::ipInNetwork($dest,$net1);
-    debug_msg("201407082205: \$in_range = \"$in_range\"");
+    debug_msg("20140708T2205Z: \$in_range = \"$in_range\"");
 
     #if($analyze_ip_arr = analyze_ip($dest_network,$dest_netmask,1))
     #{
-    #  debug_msg("200712180706: analyze_ip_arr is TRUE!",100);
-    #  debug_msg("201104121655: what does the \$analyze_ip_arr array look like?");
+    #  debug_msg("20071218T0706Z: analyze_ip_arr is TRUE!",100);
+    #  debug_msg("20110412T1655Z: what does the \$analyze_ip_arr array look like?");
     #  debug_arr($analyze_ip_arr,'analyze_ip_arr');
     #}
     #if(((ip2long($dest))>=($analyze_ip_arr['nw'])) && ((ip2long($dest))<=($analyze_ip_arr['bc'])))    # This method was flawed as of 201407082215
     # using the old method, acl -debug 100 seo01 224.0.26.56 224.0.26.56 was failing
     if($in_range)
     {
-      debug_msg("201407082213: dest looks good!",100);
+      debug_msg("20140708T2213Z: dest looks good!",100);
       $dest_portion_is_good = 1;
     }
   }
   elseif(preg_match($nw_nw_pattern,$statement,$matches))
   {
-    debug_msg("200712181805: access-list list statement is network to network type.",100);
+    debug_msg("20071218T1805Z: access-list list statement is network to network type.",100);
     require_once('Net/IPv4.php');
     // create IPv4 object
     $ip_calc = new Net_IPv4();
 
     $source_network = $matches[3];
-    debug_msg("200712181806: \$source_network = \"$source_network\"",100);
+    debug_msg("20071218T1806Z: \$source_network = \"$source_network\"",100);
     $source_netmask = $matches[4];
-    debug_msg("200712181807: \$source_netmask = \"$source_netmask\"",100);
+    debug_msg("20071218T1807Z: \$source_netmask = \"$source_netmask\"",100);
     $source_normal_netmask = inverse_netmask_to_netmask($source_netmask);
     $cidr = bitmask_from_netmask($source_normal_netmask);
-    debug_msg("201403100940: \$cidr = \"$cidr\"");
+    debug_msg("20140310T0940Z: \$cidr = \"$cidr\"");
     $net1 = "$source_network/$cidr";
-    debug_msg("201403100941: \$net1 = \"$net1\"");
+    debug_msg("20140310T0941Z: \$net1 = \"$net1\"");
 
     $dest_network = $matches[5];
-    debug_msg("200712181808: \$dest_network = \"$dest_network\"",100);
+    debug_msg("20071218T1808Z: \$dest_network = \"$dest_network\"",100);
     $dest_netmask = $matches[6];
-    debug_msg("200712181809: \$dest_netmask = \"$dest_netmask\"",100);
+    debug_msg("20071218T1809Z: \$dest_netmask = \"$dest_netmask\"",100);
     // create IPv4 object
     $ip_calc = new Net_IPv4();
     $dest_normal_netmask = inverse_netmask_to_netmask($dest_netmask);
-    debug_msg("201403110951: \$dest_normal_netmask = \"$dest_normal_netmask\"");
+    debug_msg("20140311T0951Z: \$dest_normal_netmask = \"$dest_normal_netmask\"");
     $cidr = bitmask_from_netmask($dest_normal_netmask);
     $net2 = "$dest_network/$cidr";
-    debug_msg("201403100947: \$net2 = \"$net2\"");
+    debug_msg("20140310T0947Z: \$net2 = \"$net2\"");
     
-    debug_msg("200712181810: next line will call if(analyze_ip(\"$source_network\",\"$source_netmask\")...",100);
+    debug_msg("20071218T1810Z: next line will call if(analyze_ip(\"$source_network\",\"$source_netmask\")...",100);
     if($analyze_ip_arr = analyze_ip($source_network,$source_netmask,1))
     {
-      debug_msg("200712181811: analyze_ip is TRUE",100);
+      debug_msg("20071218T1811Z: analyze_ip is TRUE",100);
       $host_first = $analyze_ip_arr['host_first'];
       $host_last = $analyze_ip_arr['host_last'];
       $network = $analyze_ip_arr['network'];
@@ -2029,131 +2029,131 @@ function is_permitted_or_denied($source,$dest=FALSE,$statement=FALSE,$proto=FALS
     }
     else
     {
-      debug_msg("200712181812: analyze_ip is FALSE");
+      debug_msg("20071218T1812Z: analyze_ip is FALSE");
     }
-    debug_msg("200712181813: \$source = \"$source\"");
-    debug_msg("200712181814: \$host_first = \"$host_first\"");
-    debug_msg("200712181815: \$host_last = \"$host_last\"");
-    debug_msg("200712181816: \$network = \"$network\"");
-    debug_msg("200712181817: \$broadcast = \"$broadcast\"");
+    debug_msg("20071218T1813Z: \$source = \"$source\"");
+    debug_msg("20071218T1814Z: \$host_first = \"$host_first\"");
+    debug_msg("20071218T1815Z: \$host_last = \"$host_last\"");
+    debug_msg("20071218T1816Z: \$network = \"$network\"");
+    debug_msg("20071218T1817Z: \$broadcast = \"$broadcast\"");
     if($source_ip)
     {
-      debug_msg("200712180930: \$source_ip is TRUE.  This means the source is CIDR notation.");
+      debug_msg("20071218T0930Z: \$source_ip is TRUE.  This means the source is CIDR notation.");
       if($analyzed_source_ip_arr = analyze_ip($source_ip,$source_nm,1))
       {
-        debug_msg("200712181837: what does the \$analyzed_source_ip_arr array look like?");
+        debug_msg("20071218T1837Z: what does the \$analyzed_source_ip_arr array look like?");
         debug_arr($analyzed_source_ip_arr,'analyzed_source_ip_arr');
         if((ip2long($analyzed_source_ip_arr['network']))>=(ip2long($network)) && (ip2long($analyzed_source_ip_arr['broadcast']))<=(ip2long($broadcast)))
         {
-          debug_msg("200712181852: The source part is looking good.",100);
+          debug_msg("20071218T1852Z: The source part is looking good.",100);
           $source_portion_is_good = 1;
         }
         else
         {
-          debug_msg("200712181853: The source part is NOT looking good.",100);
+          debug_msg("20071218T1853Z: The source part is NOT looking good.",100);
           $source_portion_is_good = 0;
         }
       }
       else
       {
-        this_should_never_happen("200712181854");
+        this_should_never_happen("20071218T1854Z");
       }
     }
     else
     {
-      debug_msg("200801182343: something might not be right in the following section...");
+      debug_msg("20080118T2343Z: something might not be right in the following section...");
       if((ip2long($source))>=(ip2long($network)) && (ip2long($source))<=(ip2long($broadcast)))
       {
-        debug_msg("200712181818: The source part is looking good.",100);
+        debug_msg("20071218T1818Z: The source part is looking good.",100);
         $source_portion_is_good = 1;
       }
       else
       {
-        debug_msg("200712181819: The source part is NOT looking good.",100);
+        debug_msg("20071218T1819Z: The source part is NOT looking good.",100);
       }
     }
-    debug_msg("200801182349: need to take into consideration what would happen if the dest is cidr notation here");
+    debug_msg("20080118T2349Z: need to take into consideration what would happen if the dest is cidr notation here");
     if($dest_ip)
     {
-      debug_msg("200801182350: \$dest_ip is TRUE.  This means the dest is CIDR notation.");
+      debug_msg("20080118T2350Z: \$dest_ip is TRUE.  This means the dest is CIDR notation.");
       if($analyzed_dest_ip_arr = analyze_ip($dest_ip,$dest_nm,1))
       {
-        debug_msg("200801182351: what does the \$analyzed_dest_ip_arr array looke like?");
+        debug_msg("20080118T2351Z: what does the \$analyzed_dest_ip_arr array looke like?");
         debug_arr($analyzed_dest_ip_arr,'analyzed_dest_ip_arr');
         $analyzed_dest_in_statement = analyze_ip($dest_network,$dest_netmask,1);
         if((ip2long($analyzed_dest_ip_arr['network']))>=(ip2long($analyzed_dest_in_statement['network'])) && (ip2long($analyzed_dest_ip_arr['broadcast']))<=(ip2long($analyzed_dest_in_statement['broadcast'])))
         {
-          debug_msg("200801182352: The dest part is looking good.",100);
+          debug_msg("20080118T2352Z: The dest part is looking good.",100);
           $dest_portion_is_good = 1;
         }
       }
     }
     else
     {
-      debug_msg("200712181820: next line will call if(analyze_ip(\"$dest_network\",\"$dest_netmask\")...",1000);
+      debug_msg("20071218T1820Z: next line will call if(analyze_ip(\"$dest_network\",\"$dest_netmask\")...",1000);
       if(analyze_ip($dest_network,$dest_netmask))
       {
-        debug_msg("200712181821: analyze_ip returned TRUE");
+        debug_msg("20071218T1821Z: analyze_ip returned TRUE");
       }
       else
       {
-        debug_msg("200712181822: analyze_ip returned FALSE");
+        debug_msg("20071218T1822Z: analyze_ip returned FALSE");
       }
-      debug_msg("200712181823: \$dest = \"$dest\"");
-      debug_msg("200712181824: \$host_first = \"$host_first\"");
-      debug_msg("200712181825: \$host_last = \"$host_last\"");
-      debug_msg("200712181826: \$network = \"$network\"");
-      debug_msg("200712181827: \$broadcast = \"$broadcast\"");
-      debug_msg("200712181829: ip2long(\$dest) = \"".ip2long($dest)."\"");
-      debug_msg("200712181830: ip2long(\$host_first) = \"".ip2long($host_first)."\"");
-      debug_msg("200712181831: ip2long(\$host_last) = \"".ip2long($host_last)."\"");
+      debug_msg("20071218T1823Z: \$dest = \"$dest\"");
+      debug_msg("20071218T1824Z: \$host_first = \"$host_first\"");
+      debug_msg("20071218T1825Z: \$host_last = \"$host_last\"");
+      debug_msg("20071218T1826Z: \$network = \"$network\"");
+      debug_msg("20071218T1827Z: \$broadcast = \"$broadcast\"");
+      debug_msg("20071218T1829Z: ip2long(\$dest) = \"".ip2long($dest)."\"");
+      debug_msg("20071218T1830Z: ip2long(\$host_first) = \"".ip2long($host_first)."\"");
+      debug_msg("20071218T1831Z: ip2long(\$host_last) = \"".ip2long($host_last)."\"");
 
       if ((ip2long($dest))>=(ip2long($network)) && (ip2long($dest))<=(ip2long($broadcast)))
       {
-        debug_msg("200712180500: the dest part is looking good",100);
+        debug_msg("20071218T0500Z: the dest part is looking good",100);
         $dest_portion_is_good = 1;
       }
       else
       {
         if($permit_or_deny === 'permit')
         {
-          debug_msg("200712180501: Not permitted.  Returning false.",100);
+          debug_msg("20071218T0501Z: Not permitted.  Returning false.",100);
         }
         else
         {
-          debug_msg("200712180502: Not denied.  Returning false.",100);
+          debug_msg("20071218T0502Z: Not denied.  Returning false.",100);
           return false;
         }
       }
     }
     if (($source_portion_is_good) && ($dest_portion_is_good))
     {
-      debug_msg("200712180503: returning true from is_permitted_or_denied...",100);
+      debug_msg("20071218T0503Z: returning true from is_permitted_or_denied...",100);
       return true;
     }
-    debug_msg("200712180504: returning false from is_permitted_or_denied...",100);
+    debug_msg("20071218T0504Z: returning false from is_permitted_or_denied...",100);
     return false;
   }
   elseif(preg_match($host_nw_pattern,$statement,$matches))
   {
-    debug_msg("200712180505: access-list statement matches host to network pattern.",100);
+    debug_msg("20071218T0505Z: access-list statement matches host to network pattern.",100);
     if($matches[3] != "$source")
     {
-      debug_msg("200712180506: source host is different.",100);
+      debug_msg("20071218T0506Z: source host is different.",100);
       return false;
     }
     else
     {
       $source_portion_is_good = 1;
-      debug_msg("200712180507: host portion matches.",100);
+      debug_msg("20071218T0507Z: host portion matches.",100);
     }
     $dest_network = $matches[4];
     $dest_mask = $matches[5];
-    debug_msg("200712180508: \$dest_network = \"$dest_network\"",100);
-    debug_msg("200712180509: \$dest_mask = \"$dest_mask\"",100);
+    debug_msg("20071218T0508Z: \$dest_network = \"$dest_network\"",100);
+    debug_msg("20071218T0509Z: \$dest_mask = \"$dest_mask\"",100);
     if($analyzed_dest_arr = analyze_ip($dest_network,$dest_mask,1))
     {
-      debug_msg("200712180510: analyze_ip returned TRUE.");
+      debug_msg("20071218T0510Z: analyze_ip returned TRUE.");
       $ipaddress = $analyzed_dest_arr['ipaddress'];
       $netmask = $analyzed_dest_arr['netmask'];
       $inverse_netmask = $analyzed_dest_arr['inverse_netmask'];
@@ -2166,17 +2166,17 @@ function is_permitted_or_denied($source,$dest=FALSE,$statement=FALSE,$proto=FALS
     }
     else
     {
-      debug_msg("200712180511: analyze_ip returned FALSE");
+      debug_msg("20071218T0511Z: analyze_ip returned FALSE");
     }
-    debug_msg("200712180512: \$ipaddress = \"$ipaddress\"");
-    debug_msg("200712180513: \$netmask = \"$netmask\"");
-    debug_msg("200712180514: \$inverse_netmask = \"$inverse_netmask\"");
-    debug_msg("200712180515: \$cidrbits = \"$cidrbits\"");
-    debug_msg("200712180516: \$network = \"$network\"");
-    debug_msg("200712180517: \$broadcast = \"$broadcast\"");
-    debug_msg("200712180518: \$numhosts = \"$numhosts\"");
-    debug_msg("200712180519: \$host_first = \"$host_first\"");
-    debug_msg("200712180520: \$host_last = \"$host_last\"");
+    debug_msg("20071218T0512Z: \$ipaddress = \"$ipaddress\"");
+    debug_msg("20071218T0513Z: \$netmask = \"$netmask\"");
+    debug_msg("20071218T0514Z: \$inverse_netmask = \"$inverse_netmask\"");
+    debug_msg("20071218T0515Z: \$cidrbits = \"$cidrbits\"");
+    debug_msg("20071218T0516Z: \$network = \"$network\"");
+    debug_msg("20071218T0517Z: \$broadcast = \"$broadcast\"");
+    debug_msg("20071218T0518Z: \$numhosts = \"$numhosts\"");
+    debug_msg("20071218T0519Z: \$host_first = \"$host_first\"");
+    debug_msg("20071218T0520Z: \$host_last = \"$host_last\"");
 
     if($dest_ip)
     {
