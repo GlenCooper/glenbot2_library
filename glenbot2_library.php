@@ -3485,54 +3485,6 @@ function split_octets($ip)
   return array(NULL,NULL,NULL,NULL,NULL);
 }
 
-function cisco_config_section($cfg_lines,$start_line)
-{
-  # This function will return the config lines of the section of the config of $rtr that begins with $start_line.
-  debug_msg("20060427T2218Z: function cisco_config_section(\"\$cfg_lines\",\"$start_line\") START:");
-  $config_lines_count = count($cfg_lines);
-  debug_msg("20060527T2019Z: \$config_lines_count = \"$config_lines_count\"");
-  $start_line_num = FALSE;
-  $start_line_search = str_replace(' ','\s',$start_line);
-  $start_line_search = str_replace('/','\/',$start_line_search);
-  $start_line_search = str_replace('-','\-',$start_line_search);
-  $start_line_search = str_replace('>','\>',$start_line_search);
-  $start_line_search = str_replace('<','\<',$start_line_search);
-  debug_msg("20140228T1621Z: \$start_line_search = \"$start_line_search\"");
-  for($i=0;$i<$config_lines_count;$i++)
-  {
-    $cfg_line = rtrim($cfg_lines[$i]);
-    debug_msg("20060527T2232Z: config_line # $i: \"$cfg_line\"",1000);
-    if(preg_match("/^$start_line_search$/",rtrim($cfg_lines[$i]),$hit))
-    {
-      $start_line_num = $i;
-      debug_msg("20060527T2213Z: \$start_line_num = \"$start_line_num\"");
-      break;
-    }
-  }
-  if(!($start_line_num))
-  {
-    debug_msg("20060428T1419Z: \$start_line_num is FALSE.");
-    debug_msg("20140228T1037Z: Returning FALSE from cisco_config_section(\"\$cfg_lines,\"$start_line\")...");
-    return FALSE;
-  }
-  for($i=($start_line_num+1);$i<$config_lines_count;$i++)
-  {
-    if(preg_match("/^!$/",rtrim($cfg_lines[$i]),$hit))
-    {
-      $end_line_num = $i;
-      debug_msg("20060527T2238Z: \$end_line_num = \"$end_line_num\"");
-      break;
-    }
-  }
-  for($i=$start_line_num;$i<$end_line_num;$i++)
-  {
-    $section_lines[] = rtrim($cfg_lines[$i]);
-  }
-  debug_msg("20060527T2248Z: what does the \$section_lines array look like?");
-  debug_arr($section_lines,'section_lines');
-  return $section_lines;
-}
-
 function ech()
 {
   # arg 0 = $text            : what to echo
@@ -3773,195 +3725,6 @@ function in_multi_array($search_str, $multi_array)
   return 0;
 }
 
-function construct_remedy_result_table($results,$schema,$columns,$center,$echo_lines,$color_mode)
-{
-  # This function draws a table of results from a remedy_query.
-
-  # arg0 : $data - multidimensional array of data as returned by remedy_query
-  # arg1 : $schema - need to know which schema the data is from in order to properly convert status values to status words
-  # arg2 : $columns - if NULL, all columns will be drawn.  Otherwise specify
-  #        the column names you want to have included in the table in the
-  #        format of: $arr["Column Header"] = $FieldName
-  #        EXAMPLE: 
-  # Array
-  # (
-  #   [000000000005245] => Array
-  #       (
-  #           [Modified-date] => 1096886316
-  #           [DateOperational] => 995151600
-  #           [LVCID] => abn11-host-2 <-> jpm07-host-11
-  #           [Create-date] => 995056561
-  #           [CompletionDate] => 1096585200
-  #           [Status] => 6
-  #           [Division] => FSD
-  #           [LVCTicketNumber] => 000000000005245
-  #      )
-  #
-  #   [USLVC0000035094] => Array
-  #      (
-  #          [Modified-date] => 1150725984
-  # ......
-  #
-  #  To draw a table with column headers "MODIFIED DATE", "LVC ID", you'd
-  #  pass an array with the following data:
-  #  $arr["MODIFIED DATE"] = "Modified-date";
-  #  $arr["LVC ID"] = "LVCID";
-  #
-  # arg3 : $center - if TRUE, the table will be encompassed in <center> tags
-  # arg4 : $echo_lines - if FALSE, the output lines will be returned in an array
-  #                      if TRUE, the table will be echo'ed
-  #
-  # arg5 : $color_mode = highlight rows according to their status
-  #        VALUES:
-  #                0 or NULL : no colored rows
-  #                1 : Matching LVCs for when doing Change Requests, Operational LVCs will be red.
-  #
-
-  global $colors;
-
-  if(!(is_array($results)))
-  {
-    this_should_never_happen("20060619T2209Z");
-  }
-  if($schema==='FSD:LVC')
-  {
-    $StatusWords = define_LVC_Status_Words();
-  }
-  if($center)
-  {
-    $output[] = "<center>\n";
-  }
-  if(!(is_array($columns)))
-  {
-    foreach($results as $tktnum => $data)
-    {
-      foreach($data as $column => $value)
-      {
-        $columns[] = $column;
-      }
-      break; # no sense in looping thru this array, we just wanted the column names.
-    }
-  }
-  else
-  {
-    foreach($columns as $column_header => $column)
-    {
-      $column_headers[] = $column_header;
-      $new_columns[] = $column;
-    }
-    $columns = $new_columns;
-  }
-  debug_msg("20060619T2309Z: what does the \$columns array look like?");
-  debug_arr($columns,'columns');
-
-  # all of the field names below will have their timestamp values converted to a readable format
-  $convert_timestamps[] = 'Modified-date';
-  $convert_timestamps[] = 'DateOperational';
-  $convert_timestamps[] = 'Create-date';
-  $convert_timestamps[] = 'CompletionDate';
-  
-  $output[] = "<table border=2>\n";
-  $output[] = "<tr>\n";
-  if($column_headers)
-  {
-    foreach($column_headers as $ord => $column_header)
-    {
-      $output[] = "<td bgcolor=\"#FFFFFF\"><font color=\"#000000\"><b>$column_header</b></font></td>\n";
-    }
-  }
-  else
-  {
-    foreach($columns as $ord => $column)
-    {
-      $output[] = "<td bgcolor=\"#FFFFFF\"><font color=\"#000000\"><b>$column</b></font></td>\n";
-    }
-  }
-  $output[] = "</tr>\n";
-  foreach($results as $tktnum => $data)
-  {
-    $output[] = "<tr>\n";
-    debug_msg("20060619T2307Z: \$tktnum = \"$tktnum\"");
-    debug_msg("20060619T2308Z: what does the \$data array look like?");
-    debug_arr($data,'data');
-    foreach($columns as $ord => $column)
-    {
-      unset($bgcolor);
-      if($data["$column"])
-      {
-        $value = $data["$column"];
-        if(in_array($column,$convert_timestamps))
-        {
-          $value = date("n/j/Y g:i:s A",$value);
-        }
-        elseif($column==='Status')
-        {
-          debug_msg("20060619T2350Z: \$column = \"$column\"");
-          debug_msg("20060619T2351Z: \$value = \"$value\"");
-          debug_msg("20060620T0024Z: \$color_mode = \"$color_mode\"");
-          if($color_mode===1)
-          {
-            debug_msg("20060620T0023Z: \$color_mode is 1.");
-            if(($value==='6')||($value==='9'))
-            {
-              debug_msg("20060620T0021Z: \$value is 6.");
-              $bgcolor = $colors['ltgreen'];
-              debug_msg("20060620T0033Z: \$bgcolor = \"$bgcolor\"");
-            }
-            else
-            {
-              debug_msg("20060620T0022Z: \$value is not 6.");
-              $bgcolor = $colors['ltred'];
-            }
-            
-          }
-          $value = $StatusWords[$value];
-        }
-        $output_line = "<td";
-        if($bgcolor)
-        {
-          debug_msg("20060620T0030Z: adding color to cell...");
-          $output_line.=" bgcolor=\"$bgcolor\"";
-        }
-        $output_line.= ">";
-        if($bgcolor)
-        {
-          $output_line.= "<font color=\"#000000\">";
-        }
-        $output_line.= "$value";
-        if($bgcolor)
-        {
-          $output_line.= "</font>\n";
-        }
-        $output_line.= "</td>\n";
-        $output[] = $output_line;
-      }
-      else
-      {
-        $output[] = "<td>&nbsp;</td>\n";
-      }
-    }
-    $output[] = "</tr>\n";
-  }
-  $output[] = "</table>\n";
-  if($center)
-  {
-    $output[] = "</center>\n";
-  }
-  if($echo_lines)
-  {
-    foreach($output as $ord => $line)
-    {
-      echo $line;
-    }
-    return $output;
-  }
-  else
-  {
-    return $output;
-  }
-}
-
-
 function unix_timestamp_of($time_string)
 {
   debug_msg("20070410T1119Z: function unix_timestamp_of(\"$time_string\") START:",500);
@@ -3986,62 +3749,6 @@ function unix_timestamp_of($time_string)
   }
   debug_msg("20070410T1204Z: ut oh, this can't be good...");
   this_should_never_happen("20070410T1205Z");
-}
-
-function extract_acls_from_cisco_config($config_lines)
-{
-  # This function will run thru every line of a Cisco config (passed in $config_lines array)
-  # and extract all of the access-lists into one multi-dimensional array and then return it.
-  debug_msg("20070427T1735Z: function import_acls_into_array START");
-  if(!(is_array($config_lines)))
-  {
-    return false;
-  }
-  $pattern_numbered = "/^access-list (\d+) ((permit|deny|remark).+)/";
-  $pattern_extended_named = "/^ip access-list extended (\S+)/";
-  $pattern_good_stuff = "/^ ((permit|deny|remark) .+)$/";
-  $pattern_standard_named = "/^ip access-list standard (\S+)/";
-  foreach($config_lines as $ord => $line)
-  {
-    if(preg_match($pattern_numbered,$line,$hit))
-    {
-      debug_msg("20070427T2218Z: \$line = \"$line\"");
-      debug_msg("20070427T2216Z: matched numbered ACL pattern.");
-      $aclname = $hit[1];
-      debug_msg("20070427T2217Z: \$aclname = \"$aclname\"");
-      $permit_or_deny_part = $hit[2];
-      if(($aclname>=1 && $aclname <=99) || ($aclname>=1300 && $aclname<=1999))
-      {
-        $type = 'standard';
-      }
-      elseif(($aclname>=100 && $aclname<=199) || ($aclname>=2000 && $aclname<=2699))
-      {
-        $type = 'extended';
-      }
-      $acl["$aclname"]['type'] = $type;
-      $acl["$aclname"]['acl'][] = $permit_or_deny_part;
-    }
-    elseif(preg_match($pattern_extended_named,$line,$hit))
-    {
-      $aclname = $hit[1];
-      debug_msg("20070427T2213Z: extended \$aclname = \"$aclname\"");
-      $type = 'extended';
-    }
-    elseif(preg_match($pattern_standard_named,$line,$hit))
-    {
-      $aclname = $hit[1];
-      debug_msg("20070423T2214Z: standard \$aclname = \"$aclname\"");
-      $type = 'standard';
-    }
-    elseif(preg_match($pattern_good_stuff,$line,$hit))
-    {
-      $good_stuff_match = $hit[1];
-      debug_msg("20070427T2220Z: \$good_stuff_match = \"$good_stuff_match\"");
-      $acl["$aclname"]['type'] = $type;
-      $acl["$aclname"]['acl'][] = $good_stuff_match;
-    }
-  }
-  return($acl);
 }
 
 function ordinal_suffix($value, $sup = 0)
@@ -4354,86 +4061,6 @@ function add_textfile_contents_to_worklog($form_name,$recnum,$filename,$prefix_l
   }
 }
 
-function load_worklog_from_device_ticket($device_record_num)
-{
-  $cmd = "/home/gcooper/shared/scripts/php/deinstall/read_worklog.pl --form=DEVICE --tkt=$device_record_num";
-  if($output = run_command($cmd,1,1))
-  {
-    $in_entry = FALSE;
-    $header = array();
-    $worklog = array();
-    $lines = array();
-    foreach($output as $ord => $line)
-    {
-      if($header)
-      {
-        if(preg_match("/^\-\-\-\-\-\-\-\-\-\-worklog\_entry\:/",$line))
-        {
-          $stuff = array();
-          $stuff['header'] = $header;
-          $stuff['lines'] = $lines;
-          $worklog[] = $stuff;
-          $header = array();
-          $lines = array();
-        }
-        else
-        {
-          $lines[] = $line;
-        }
-      }
-      elseif($in_entry)
-      {
-        # Thu Sep 21 12:22:11 2006        Eric Kahler
-        if(preg_match("/^(Sun|Mon|Tue|Wed|Thu|Fri|Sat) (Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+(\d+)\s+(\d+\:\d+\:\d+)\s+(\d+)\s+(.+)/",$line,$hit))
-        {
-          $header['dayofweek'] = $hit[1];
-          $header['month'] = $hit[2];
-          $header['day'] = $hit[3];
-          $header['time'] = $hit[4];
-          $header['year'] = $hit[5];
-          $header['user'] = $hit[6];
-        }
-        else
-        {
-          $in_entry = FALSE;
-        }
-      }
-      elseif(preg_match("/^\-\-\-\-\-\-\-\-\-\-worklog\_entry\:/",$line,$hit))
-      {
-        $in_entry = TRUE;
-      }
-    }
-    $stuff = array();
-    if($header)
-    {
-      $stuff['header'] = $header;
-      $stuff['lines'] = $lines;
-      $worklog[] = $stuff;
-      $header = array();
-      $lines = array();
-    }
-  }
-  else
-  {
-    echocolor("ERROR: unable to read worklog of $device_record_num.\n",'light_red');
-    script_abort('201007011336');
-  }
-  return $worklog;
-}
-
-function increment_counter($counter_id,$increment_by=FALSE)
-{
-  if(!($increment_by))
-  {
-    $increment_by = 1;
-  }
-  $cmd = "php -q /home/gcooper/shared/scripts/php/counter/counter.php --counter_id=\"$counter_id\" --increment_by=\"$increment_by\"";
-  debug_msg("20100713T1125Z: \$cmd= $cmd");
-  $output = run_command($cmd,1,1);
-  debug_msg("20100712T1344Z: what does the \$output array look like?");
-  debug_arr($output,'output');
-}
-
 function mins_of_day($hour,$min)
 {
   # This function will return the number of minutes that have elapsed since midnight (00:00) for the specified $hour and $min.
@@ -4524,50 +4151,8 @@ function define_username()
   {
     $username = 'UNKNOWN';
   }
-  debug_msg("201306251606: returning \"$username\" from define_username()...");
+  debug_msg("20130625T1606Z: returning \"$username\" from define_username()...");
   return $username;
-}
-
-function standard_or_extended_access_list($acl,$rtr)
-{
-  debug_msg("201101131321: function standard_or_extended_access_list(\"$acl\",\"$rtr\") START:");
-  $type = FALSE;
-  if(preg_match("/^(\d+)$/",$acl))
-  {
-    if($acl>=100 && $acl<=199)
-    {
-      $type = 'extended';
-    }
-    elseif(($acl>=1 && $acl<=99)||($acl>=1300 && $acl<=1999))
-    {
-      $type = 'standard';
-    }
-  }
-  else
-  {
-    if($cfg_lines = load_config($rtr))
-    {
-      $aclsearch = str_replace("-","\-",$acl);
-      $aclsearch = str_replace("<","\<",$aclsearch);
-      $aclsearch = str_replace(">","\>",$aclsearch);
-      foreach($cfg_lines as $ord => $line)
-      {
-        if(preg_match("/^ip access\-list (standard|extended) $aclsearch$/",$line,$hit))
-        {
-          $type = $hit[1];
-        }
-      }
-    }
-  }
-  if($type)
-  {
-    debug_msg("201101131333: \$type = \"$type\"");
-    return $type;
-  }
-  else
-  {
-    this_should_never_happen('201101131334');
-  }
 }
 
 function is_reachable($devicename)
@@ -4632,10 +4217,10 @@ function funny_wait()
   $msgs[] = 'Kicking some @55... ';
   $msgs[] = 'Going through the wormhole... ';
   $howmany = count($msgs);
-  debug_msg("201505042309: \$howmany = \"$howmany\"");
+  debug_msg("20150504T2309Z: \$howmany = \"$howmany\"");
   shuffle($msgs);
   $chosen = $msgs[0];
-  debug_msg("201505042317: \$chosen = \"$chosen\"");
+  debug_msg("20150504T2317Z: \$chosen = \"$chosen\"");
   return $chosen;
 }
 
