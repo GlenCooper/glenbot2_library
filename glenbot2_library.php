@@ -1346,7 +1346,7 @@ function get_options()
   #
   global $_GET;
 
-  debug_msg("200502112149: function get_options START",1000);
+  debug_msg("20190303T162329Z: function get_options START",1000);
   debug_arr($_GET,'_GET',1000);
   if(isset($options))
   {
@@ -1359,8 +1359,8 @@ function get_options()
   }
   $trimmed_options = rtrim($options,'&');
   $options = $trimmed_options;
-  debug_msg("200502112156: \$options = \"$options\"",1000);
-  debug_msg("200506231538: function get_options END",500);
+  debug_msg("20190303T162346Z: \$options = \"$options\"",1000);
+  debug_msg("20190303T162422Z: function get_options END",500);
   return $options;
 }
 
