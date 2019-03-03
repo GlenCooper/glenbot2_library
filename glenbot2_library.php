@@ -1040,7 +1040,7 @@ function take_out_the_trash($path,$days_to_keep=7)
     $days_to_keep = $number_of_days_to_keep_log_files;
   }
   $today = date("Ymd");
-  debug_msg("201004131134: \$today = \"$today\"");
+  debug_msg("20100413T1134Z: \$today = \"$today\"");
   $exclude_patterns = array();
   $exclude_patterns[] = "/^$today/";
   for($i=1;$i<$days_to_keep;$i++)
@@ -1049,17 +1049,17 @@ function take_out_the_trash($path,$days_to_keep=7)
     $numerical_date = date("Ymd",strtotime("$minus_days"));
     $exclude_patterns[] = "/^$numerical_date/";
   }
-  debug_msg("201108221353: what does the \$exclude_patterns array look like?");
+  debug_msg("20110822T1353Z: what does the \$exclude_patterns array look like?");
   debug_arr($exclude_patterns,'exclude_patterns');
   $list = list_of_files_in_directory($path,1,NULL,0,1,1,0,0,$exclude_patterns);
-  debug_msg("201004131120: what does the \$list array look like?");
+  debug_msg("20100413T1120Z: what does the \$list array look like?");
   debug_arr($list,'list');
   $all_old_logs_purged_successfully = TRUE;
   foreach($list as $filename)
   {
     # NOTE: Do not attempt to use echocolor within this function; it would cause a recursive call to this function
     #echocolor("Deleting old log file \"$filename\"... ",'light_blue');
-    debug_msg("\n201004131229: next line is unlink(\"$filename\")...");
+    debug_msg("\n20100413T1229Z: next line is unlink(\"$filename\")...");
     if(unlink("$filename"))
     {
       #echocolor("Done.\n",'light_green');
@@ -1070,15 +1070,15 @@ function take_out_the_trash($path,$days_to_keep=7)
       $all_old_logs_purged_successfully = FALSE;
     }
   }
-  debug_msg("201004131234: done with foreach loop");
+  debug_msg("20100413T1234Z: done with foreach loop");
   if($all_old_logs_purged_successfully)
   {
-    debug_msg("201004131227: \$all_old_logs_purged_successfully is TRUE");
+    debug_msg("20100413T1227Z: \$all_old_logs_purged_successfully is TRUE");
     return TRUE;
   }
   else
   {
-    debug_msg("201004131228: \$all_old_logs_purged_successfully is FALSE");
+    debug_msg("20100413T1228Z: \$all_old_logs_purged_successfully is FALSE");
   }
 }
 
@@ -1168,20 +1168,20 @@ function select_all_and_copy()
   {
     $text_left_of_select_button = 0;
   }
-  debug_msg("200708230058: \$text_left_of_select_button = \"$text_left_of_select_button\"",1000);
+  debug_msg("20070823T0058Z: \$text_left_of_select_button = \"$text_left_of_select_button\"",1000);
   if($num_args>4)
   {
     $word_wrap = func_get_arg(4);
-    debug_msg("200710201500: \$word_wrap = \"$word_wrap\"");
+    debug_msg("20071020T1500Z: \$word_wrap = \"$word_wrap\"");
   }
   else
   {
     $word_wrap = FALSE;
   }
-  debug_msg("200510211412: function select_all_and_copy(\"$txt\",\"$name\") START",500);
-  debug_msg("200510241526: need to get rid of .'s in the \$name (\"$name\").",1000);
+  debug_msg("20051021T1412Z: function select_all_and_copy(\"$txt\",\"$name\") START",500);
+  debug_msg("20051024T1526Z: need to get rid of .'s in the \$name (\"$name\").",1000);
   $formname = str_replace('.','_',$name);
-  debug_msg("200510241527: \$formname = \"$formname\"",1000);
+  debug_msg("20051024T1527Z: \$formname = \"$formname\"",1000);
   ech("<form name=\"$formname\">\n",$ech_verbose_level);
   ech("<br><table border=0><tr>\n",$ech_verbose_level);
   ech("<td align=\"left\">");
@@ -1193,7 +1193,7 @@ function select_all_and_copy()
   ech("<td align=\"right\"><input onclick=\"copyit('$formname.textpart')\" type=\"button\" value=\"Select All and Copy\" name=\"cpy\"></td>\n",$ech_verbose_level,0,1);
   ech("</tr><tr>\n",$ech_verbose_level,0,1);
   $txt_count = count($txt);
-  debug_msg("200511041529: \$txt_count = \"$txt_count\"",1000);
+  debug_msg("20051104T1529Z: \$txt_count = \"$txt_count\"",1000);
   if(is_array($txt))
   {
     $numrows = $txt_count + 1;
@@ -1216,13 +1216,13 @@ function select_all_and_copy()
     $how_many_cols = 120;
     if(is_array($txt))
     {
-      debug_msg("200710201501: is_array(\$txt) is TRUE");
-      debug_msg("200710201507: what does the \$txt array look like?");
+      debug_msg("20071020T1501Z: is_array(\$txt) is TRUE");
+      debug_msg("20071020T1507Z: what does the \$txt array look like?");
       debug_arr($txt,'txt');
       foreach($txt as $ord => $line)
       {
         $length_of_line = strlen($line);
-        debug_msg("200710201503: \$length_of_line = \"$length_of_line\"",1000);
+        debug_msg("20071020T1503Z: \$length_of_line = \"$length_of_line\"",1000);
         if($length_of_line>$how_many_cols)
         {
           $numrows++;
@@ -1234,7 +1234,7 @@ function select_all_and_copy()
     }
     else
     {
-      debug_msg("200710201501: is_array(\$txt) is TRUE");
+      debug_msg("20071020T1501Z: is_array(\$txt) is TRUE");
       if(strlen($txt)>$how_many_cols)
       {
         $need_to_round_this = (strlen($line))/($how_many_cols);
@@ -1261,7 +1261,7 @@ function select_all_and_copy()
   }
   ech("</textarea></td></tr></table>\n",$ech_verbose_level);
   ech("</form>\n",$ech_verbose_level);
-  debug_msg("200510211413: function select_all_and_copy(\"$txt\",\"$name\") END.",500);
+  debug_msg("20051021T1413Z: function select_all_and_copy(\"$txt\",\"$name\") END.",500);
 }
 
 function rebuild_options_without($omit)
