@@ -21,6 +21,7 @@
 # 20190204T0313Z: I'm still alive...
 # 20190215T0949Z: something smells fishy with blockstack browser Linux install... my CPU is SCREAMING ever since (a couple hours ago)
 # 20190303T0634Z: things calmed down with the CPU.  Blockstack isn't entirely fishy... but not worth my time now.  Maybe someday.  Sticking with keybase.glencooper.com for now
+# 20190303T1547Z: making push.sh work a little harder!
 #
 
 if(!isset($colors))
