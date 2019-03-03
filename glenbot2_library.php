@@ -5227,9 +5227,9 @@ function increment_counter($counter_id,$increment_by=FALSE)
     $increment_by = 1;
   }
   $cmd = "php -q /home/gcooper/shared/scripts/php/counter/counter.php --counter_id=\"$counter_id\" --increment_by=\"$increment_by\"";
-  debug_msg("201007131125: \$cmd= $cmd");
+  debug_msg("20100713T1125Z: \$cmd= $cmd");
   $output = run_command($cmd,1,1);
-  debug_msg("201007121344: what does the \$output array look like?");
+  debug_msg("20100712T1344Z: what does the \$output array look like?");
   debug_arr($output,'output');
 }
 
@@ -5240,53 +5240,8 @@ function mins_of_day($hour,$min)
   #            ; if the speicifed time is 01:00, the $mins returned will be 60.
   #            ; if the specified time is 16:30, the $mins returned will be ((16*60)+30) = 990.
   $mins = (($hour*60)+$min);
-  debug_msg("201006171249: \$mins = \"$mins\"");
+  debug_msg("20100617T1249Z: \$mins = \"$mins\"");
   return $mins;
-}
-
-function update_field($form,$recordNumber,$fieldID,$value,$exitOnFailure=FALSE)
-{
-  # This function will update a field's value in Remedy.
-  # It will return TRUE if the field was successfully updated.
-  # If the update is unsuccessful, you can pass a POINTCODE as the 5th arg
-  # and this function will call script_abort($exitOnFailure).
- 
-  $update_field_script_filename = '/home/gcooper/shared/scripts/perl/update_field/update_field.pl';
-  if(!(file_exists($update_field_script_filename)))
-  {
-    script_abort('201202241058');
-  }
-
-  $cmd = "$update_field_script_filename --form=\"$form\" --tkt=\"$recordNumber\" --fid=\"$fieldID\" --fv=\"$value\"";
-  debug_msg("201103091317: \$cmd= $cmd");
-  $output = run_command($cmd,1,1);
-  debug_msg("201103091318: what does the \$output array look like?");
-  debug_arr($output,'output');
-  $updated = FALSE;
-  foreach($output as $ord => $line)
-  {
-    if(preg_match("/Updated/",$line))
-    {
-      debug_msg("201103091322: field was updated successfully.");
-      return TRUE;
-    }
-  }
-  if($exitOnFailure)
-  {
-    debug_msg("201103091335: next line will call script_abort(\"$exitOnFailure\")...");
-    if(function_exists('script_abort'))
-    {
-      script_abort("$exitOnFailure");
-    }
-    else
-    {
-      debug_msg("201103091339: next line will echo...");
-      echo "ERROR: Unable to update field $fieldID in $form record number $recordNumber!\n";
-      echo "Script aborted.\n";
-      echo "POINTCODE: $exitOnFailure\n";
-      exit;
-    }
-  }
 }
 
 function prettyPrint( $json )
