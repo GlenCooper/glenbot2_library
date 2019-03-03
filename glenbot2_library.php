@@ -3058,27 +3058,6 @@ function define_LVC_Status_Words($specific_individual_status=FALSE)
   return $Status_words;
 }
 
-function define_Ticket_Status_Words()
-{
-  # AR:TroubleTicket Statuses------
-  # As of Oct 2, 2006, each Trouble Ticket in Remedy has a numerical Status indicator.
-  # The ticket status is stored in the TStatus field
-  $Trouble_Ticket_Status_Words = array();
-  $Trouble_Ticket_Status_Words[0] = 'Work-in-Progress';
-  $Trouble_Ticket_Status_Words[1] = 'Pending TNS';
-  $Trouble_Ticket_Status_Words[2] = 'Pending Telco';
-  $Trouble_Ticket_Status_Words[3] = 'Pending Customer';
-  $Trouble_Ticket_Status_Words[4] = 'Pending CC';
-  $Trouble_Ticket_Status_Words[5] = 'Pending Equipment Replacement';
-  $Trouble_Ticket_Status_Words[6] = 'Monitoring';
-  $Trouble_Ticket_Status_Words[7] = 'CBEOS';
-  $Trouble_Ticket_Status_Words[8] = 'CBEOD';
-  $Trouble_Ticket_Status_Words[9] = 'Resolved';
-  $Trouble_Ticket_Status_Words[10] = 'Closed';
-  $Trouble_Ticket_Status_Words[11] = 'Cancelled';
-  return $Trouble_Ticket_Status_Words;
-}
-
 function add_backslashes($advanced_search)
 {
   # this function adds whatever backslashes are needed in order to run the advanced search from a command-line rq.pl call
