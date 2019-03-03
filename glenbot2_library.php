@@ -582,10 +582,10 @@ if(!function_exists('define_hostname_short'))
 function script_aborted($pointcode)
 {
   global $colors;
-  debug_msg("200605280321: function script_aborted(\"$pointcode\") START");
-  debug_msg("200605280322: next line will call tripwire(\"$pointcode\")...");
+  debug_msg("20060528T0321Z: function script_aborted(\"$pointcode\") START");
+  debug_msg("20060528T0322Z: next line will call tripwire(\"$pointcode\")...");
   tripwire("$pointcode");
-  debug_msg("200605280323: done with tripwire(\"$pointcode\").");
+  debug_msg("20060528T0323Z: done with tripwire(\"$pointcode\").");
   if(is_command_line_version())
   {
     echocolor("Script aborted.\n",'light_red');
