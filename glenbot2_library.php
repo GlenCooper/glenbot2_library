@@ -122,18 +122,18 @@ function define_colors()
 
 function is_valid_net_ipv4_parse_address($cidr)
 {
-  debug_msg("201602292237: function is_valid_net_ipv4_parse_address(\"$cidr\") START:");
+  debug_msg("20160229T2237Z: function is_valid_net_ipv4_parse_address(\"$cidr\") START:");
   require_once('Net/IPv4.php');   # https://pear.php.net/manual/en/package.networking.net-ipv4.php
   $net = Net_IPv4::parseAddress($cidr);   # https://pear.php.net/manual/en/package.networking.net-ipv4.parseaddress.php
   if(PEAR::isError($net))    # https://pear.php.net/manual/en/core.pear.pear.iserror.php
   {
-    debug_msg("201602292219: PEAR::isError(\$net) is TRUE!");
+    debug_msg("20160229T2219Z: PEAR::isError(\$net) is TRUE!");
   }
   else
   {
-    debug_msg("201602292222: converting \$net object to associative array");
+    debug_msg("20160229T2222Z: converting \$net object to associative array");
     $stuff = (array) $net;
-    debug_msg("201602292231: what does the \$stuff array look like?");
+    debug_msg("20160229T2231Z: what does the \$stuff array look like?");
     debug_arr($stuff,'stuff');
     return $stuff;
   }
@@ -1272,15 +1272,15 @@ function rebuild_options_without($omit)
   {
     $passed_args[$i] = func_get_arg($i);
   }
-  debug_msg("200512222123: function rebuild_options() START");
+  debug_msg("20051222T2123Z: function rebuild_options() START");
   if(!($passed_args))
   {
     return;
   }
-  debug_msg("200512222115: next line will call explode_options()...");
+  debug_msg("20051222T2115Z: next line will call explode_options()...");
   $options_arr = explode_options();
-  debug_msg("200512222116: done with explode_options().");
-  debug_msg("200512222120: what does the \$options_arr look like?");
+  debug_msg("20051222T2116Z: done with explode_options().");
+  debug_msg("20051222T2120Z: what does the \$options_arr look like?");
   debug_arr($options_arr,'options_arr');
   if(is_array($options_arr))
   {
