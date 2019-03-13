@@ -24,6 +24,7 @@
 # 20190303T1547Z: making push.sh work a little harder!
 # 20190311T0341Z: thinking of trying to use MySQL again...
 # 20190313T0133Z: considering using Lychee (https://lychee.electerious.com/) as the open-source photo manager, and updating this file just to show signs of life.
+# 20190313T0711Z: not gonna use Lychee because I don't like the way it truncates the titles to 30 characters.  I wasted time trying to figure out how to fix.
 #
 
 if(!isset($colors))
@@ -1548,37 +1549,37 @@ function connect_to_mysql_database()
   $num_args = func_num_args();
   if($num_args>0)
   {
-    debug_msg("200810011507: \$num_args is greater than 0.",500);
+    debug_msg("20081001T1507Z: \$num_args is greater than 0.",500);
     $mysqlstuff = func_get_arg(0);
     #debug_msg("200810011546: what does the \$mysqlstuff array look like?");
     #debug_arr($mysqlstuff,'mysqlstuff');
   }
   if($num_args>1)
   {
-    debug_msg("200810011544: \$num_args is greater than 1.",500);
+    debug_msg("20081001T1544Z: \$num_args is greater than 1.",500);
     $mysql_host = '';
     $mysql_user = '';
     $mysql_pass = '';
   }
-  debug_msg("200810011545: \$num_args is not greater than 1.",500);
-  debug_msg("200602222257: function connect_to_mysql_database(\"\$mysqlstuff\") START:",1000);
+  debug_msg("20081001T1545Z: \$num_args is not greater than 1.",500);
+  debug_msg("20060222T2257Z: function connect_to_mysql_database(\"\$mysqlstuff\") START:",1000);
   if(!($mysqlstuff))
   {
     echo "<font color=\"red\">WARNING: \$mysqlstuff is FALSE!</font><br>\n";
-    echo "<font color=\"red\">Pointcode: 200603011856</font><br><br>\n";
+    echo "<font color=\"red\">POINTCODE: 20060301T1856Z</font><br><br>\n";
     return;
   }
-  debug_msg("200602222258: attempting mysql_connect() using \$mysqlstuff login credentials...",1000);
+  debug_msg("20060222T2258Z: attempting mysql_connect() using \$mysqlstuff login credentials...",1000);
   $db = @mysql_connect($mysqlstuff['host'],$mysqlstuff['user'],$mysqlstuff['pass']);   # Modified 201603261747 to hush the errors if/when they occur
   if($db)
   {
-    debug_msg("200602222259: \$db is TRUE",1000);
-    debug_msg("200602222333: returning \$db from connect_to_mysql_database()",1000);
+    debug_msg("20060222T2259Z: \$db is TRUE",1000);
+    debug_msg("20060222T2333Z: returning \$db from connect_to_mysql_database()",1000);
     return($db);
   }
   else
   {
-    debug_msg("200602222300: \$db is FALSE",1000);
+    debug_msg("20060222T2300Z: \$db is FALSE",1000);
     return false;
   }
 }
