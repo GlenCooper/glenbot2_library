@@ -1588,7 +1588,7 @@ function connect_to_mysql_database()
   else
   {
     debug_msg("20190313T1239Z: hmmm... wtf?!");
-    $db = mysql_connect($mysqlstuff['host'],$mysqlstuff['user'],$mysqlstuff['pass']);   # Modified 20160326T1747Z to hush the errors if/when they occur
+    $db = mysql_connect($mysqlstuff['host'],$mysqlstuff['user'],$mysqlstuff['pass']);   # Modified 20190313T1241Z to SHOW the errors if/when they occur... but where are they?
     if($db)
     {
       debug_msg("20190313T1236Z: \$db is TRUE",1000);
