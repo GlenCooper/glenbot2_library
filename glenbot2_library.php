@@ -23,6 +23,7 @@
 # 20190303T0634Z: things calmed down with the CPU.  Blockstack isn't entirely fishy... but not worth my time now.  Maybe someday.  Sticking with keybase.glencooper.com for now
 # 20190303T1547Z: making push.sh work a little harder!
 # 20190311T0341Z: thinking of trying to use MySQL again...
+# 20190313T0133Z: considering using Lychee as the open-source photo manager, and updating this file just to show signs of life.
 #
 
 if(!isset($colors))
@@ -242,110 +243,6 @@ function is_valid_ip_v2($ip=FALSE,$which_value='',$silent_mode=FALSE)
   }
   debug_msg("200505052217: returning TRUE.",500);
   return $ipaddress;
-}
-
-function is_valid_ip()
-{
-  global $ipaddress,$ipaddress_portnumber,$colors,$RealIPAddress_ep1,$debug_on;
-  # function is_valid_ip($ip_addr,$which_value)
-  # example: is_valid_ip("192.168.100.1",'EP2-RealIPAddress')
-  debug_msg("200505052212: is_valid_ip function START",500);
-  $num_args = func_num_args();
-  debug_msg("200505052213: \$num_args = \"$num_args\"",1000);
-  if($num_args>0)
-  {
-    $ip_addr = func_get_arg(0);
-    debug_msg("200704201441: \$ip_addr = \"$ip_addr\"",100);
-  }
-  if($num_args>1)
-  {
-    $which_value = func_get_arg(1);
-    debug_msg("200704201442: \$which_value = \"$which_value\"",100);
-  }
-  else
-  {
-    $which_value = '';
-  }
-  if($num_args>2)
-  {
-    $silent_mode = func_get_arg(2);
-    debug_msg("200704191955: \$silent_mode = \"$silent_mode\"",100);
-  }
-  else
-  {
-    $silent_mode = FALSE;
-  }
-  $msg = "<li>Checking to see if";
-  if($which_value != NULL)
-  {
-    $msg.= " $which_value";
-  }
-  if($ip_addr != NULL)
-  {
-    $msg.= " (\"$ip_addr\")";
-  }
-  $msg.= " is a valid IP address... ";
-  if(!($silent_mode))
-  {
-    ech($msg);
-  }
-  $ipaddress = 0;
-  $ipaddress_portnumber = 0;
-  $invalid_ip = 0;
-  $valid_pattern = '/^(\d+)\.(\d+)\.(\d+)\.(\d+)(:(\d+))?$/';
-  $gave_warning = 0;
-  if(preg_match($valid_pattern,$ip_addr,$ipmatches))
-  {
-    $octets[0] = $ipmatches[1];
-    $octets[1] = $ipmatches[2];
-    $octets[2] = $ipmatches[3];
-    $octets[3] = $ipmatches[4];
-    $ipaddress = $octets[0].'.'.$octets[1].'.'.$octets[2].'.'.$octets[3];
-    if(isset($ipmatches[6]))
-    {
-      if($ipmatches[6])
-      {
-        $ipaddress_portnumber = $ipmatches[6];
-        if(!($silent_mode))
-        {
-          echo "<font color=\"".$colors['yellow']."\">WARNING:<br>\n";
-          echo "There is also a port number ($ipaddress_portnumber) specified which will be ignored.&nbsp; EP1-RealIPAddress will be interpreted as \"$ipaddress\".</font><br>\n";
-        }
-        $RealIPAddress_ep1 = $ipaddress;
-        $gave_warning = 1;
-      }
-    }
-    if(count($octets)!=4)
-    {
-     debug_msg("20050505T2214Z: count(\$octets) != 4.  Returning false.");
-       return false;
-    }
-    $octets_count = count($octets);
-    debug_msg("200902180944: \$octets_count = \"$octets_count\"",1000);
-    for($validloop=0;$validloop<$octets_count;$validloop++)
-    {
-      debug_msg("200902180943: \$validloop = \"$validloop\"",1000);
-      if(!(($octets[$validloop]>=0)&&($octets[$validloop]<= 255)))
-      {
-        debug_msg("200505052215: \$octets[$validloop] is not between 0 and 255.  Returning false.");
-        return false;
-      }
-    }
-  }
-  else
-  {
-    debug_msg("200505052216: no pattern match.  Returning false.");
-    return false;
-  }
-  if(!($gave_warning))
-  {
-    if(!($silent_mode))
-    {
-      ech("<font color=\"".$colors['green']."\">It is.</font><br>\n");
-    }
-  }
-  debug_msg("200505052217: returning TRUE.",500);
-  return true;
 }
 
 if(!(function_exists('debug_arr')))
