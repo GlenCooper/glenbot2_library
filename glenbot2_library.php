@@ -1549,8 +1549,8 @@ function connect_to_mysql_database()
   {
     debug_msg("20081001T1507Z: \$num_args is greater than 0.",500);
     $mysqlstuff = func_get_arg(0);
-    #debug_msg("200810011546: what does the \$mysqlstuff array look like?");
-    #debug_arr($mysqlstuff,'mysqlstuff');
+    debug_msg("20081001T1546Z: what does the \$mysqlstuff array look like?");
+    debug_arr($mysqlstuff,'mysqlstuff');
   }
   if($num_args>1)
   {
@@ -1563,12 +1563,13 @@ function connect_to_mysql_database()
   debug_msg("20060222T2257Z: function connect_to_mysql_database(\"\$mysqlstuff\") START:",1000);
   if(!($mysqlstuff))
   {
+    # 20190313T0949Z: I can't think of how this could ever be encountered... might be chopped out someday...
     echo "<font color=\"red\">WARNING: \$mysqlstuff is FALSE!</font><br>\n";
     echo "<font color=\"red\">POINTCODE: 20060301T1856Z</font><br><br>\n";
     return;
   }
   debug_msg("20060222T2258Z: attempting mysql_connect() using \$mysqlstuff login credentials...",1000);
-  $db = @mysql_connect($mysqlstuff['host'],$mysqlstuff['user'],$mysqlstuff['pass']);   # Modified 201603261747 to hush the errors if/when they occur
+  $db = @mysql_connect($mysqlstuff['host'],$mysqlstuff['user'],$mysqlstuff['pass']);   # Modified 20160326T1747Z to hush the errors if/when they occur
   if($db)
   {
     debug_msg("20060222T2259Z: \$db is TRUE",1000);
