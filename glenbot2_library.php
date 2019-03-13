@@ -1545,12 +1545,12 @@ function select_database()
 function connect_to_mysql_database($mysqlstuff=FALSE)
 {
   debug_msg("20199313T1347Z: function connect_to_mysql_database(\"\$mysqlstuff\") START:",1000);
-  debug_msg("20081001T1546Z: what does the \$mysqlstuff array look like?");
+  debug_msg("20081001T1546Z: what does the \$mysqlstuff array look like?",2000);  # WARNING: Will echo pass in CLEARTEXT
   debug_arr($mysqlstuff,'mysqlstuff');
   if(!($mysqlstuff))
   {
     echo "<font color=\"red\">FATAL ERROR: \$mysqlstuff is FALSE!</font><br>\n";
-    echo "<font color=\"red\">POINTCODE: 20199313T1348Z</font><br><br>\n";
+    echo "<font color=\"red\">POINTCODE: 20190313T1348Z</font><br><br>\n";
     die();
   }
   debug_msg("20190313T1349Z: attempting mysqli_connect() using \$mysqlstuff login credentials...",1000);
@@ -1574,7 +1574,7 @@ function connect_to_mysql_database($mysqlstuff=FALSE)
   {
     debug_msg("20190313T1442Z: here we go...");
     $mysqli = mysqli_connect($mysqlstuff['host'],$mysqlstuff['user'],$mysqlstuff['pass'],$mysqlstuff['database']);
-    debug_msg("20190313T1443Z: please let there be something above this debug statement...?");
+    debug_msg("20190313T1619Z: if the mysql connector is doing what it's supposed to do, the above should look good (with a debug_on value of 2000).  WARNING: CLEARTEXT!");
     # 20190213T1306Z: figured out something...
     # mrbtc@oberon:/var/www/cryqr.com/html$ tail -f /var/log/apache2/error.log
     # [Wed Mar 13 08:27:09.040983 2019] [proxy_fcgi:error] [pid 19384:tid 140500065552128] [client 172.98.67.52:35658] AH01071: Got error 'PHP message: PHP Fatal error:  Uncaught Error: Call to undefined function mysql_connect() in /var/www/cryqr.com/html/glenbot2_library.txt:1573\nStack trace:\n#0 /var/www/cryqr.com/html/rd.php(51): connect_to_mysql_database(Array)\n#1 /var/www/cryqr.com/html/rd.php(10): talk_to_db()\n#2 /var/www/cryqr.com/html/rd.php(36): main_part()\n#3 {main}\n  thrown in /var/www/cryqr.com/html/glenbot2_library.txt on line 1573\n'
