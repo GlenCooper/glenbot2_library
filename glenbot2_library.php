@@ -1485,63 +1485,6 @@ function filename_part_of_pathname($pathname)
   return $filename;
 }
 
-function select_database()
-{
-  # arg(0) = $which_database
-  # arg(1) = OPTIONAL: If true, script will hard abort on error.
-  #                    If false, this function will return false on error.
-  # 
-  # This function will attempt to connect to the mysql database,
-  # and select 
-  #
-  global $mysqlstuff;
-  $which_database = func_get_arg(0);
-  debug_msg("200602222304: function select_database(\"$which_database\") START:",300);
-  $num_args = func_num_args();
-  debug_msg("200602222318: \$num_args = \"$num_args\"",500);
-  if($num_args > 1)
-  {
-    $abort_on_error = func_get_arg(1);
-    debug_msg("200602222324: \$abort_on_error = \"$abort_on_error\"",1000);
-  }
-  debug_msg("200602222313: next line will call connect_to_mysql_database()...",300);
-  if(!($db = connect_to_mysql_database($mysqlstuff)))
-  {
-    if($abort_on_error)
-    {
-      $msg = "ERROR: Unable to connect to MySQL database\n";
-      if(!(is_command_line_version()))
-      {
-        echo "<br>\n";
-      }
-      script_aborted("200602222320");
-    }
-    return false;
-  }
-  debug_msg("200602222325: successfully connected to mysql database.",100);
-  debug_msg("200602222305: next line is \$db_selected = mysql_select_db(\"$which_database\")...",1000);
-  $db_selected = mysql_select_db("$which_database",$db);
-  debug_msg("200602222353: checking to see if \$db_selected is TRUE...",1000);
-  if($db_selected)
-  {
-    debug_msg("200602222306: \$db_selected is TRUE",1000);
-    debug_msg("200602222307: returning TRUE from select_database(\"$which_database\")",300);
-    return TRUE;
-  }
-  debug_msg("200602222308: \$db_selected is FALSE",1000);
-  if($abort_on_error)
-  {
-    echo "ERROR.  Unable to select MySQL database \"$which_database\".\n";
-    if(!(is_command_line_version))
-    {
-      echo "<br>\n";
-    }
-    script_aborted("200602222350");
-  }
-  debug_msg("200602222309: returning FALSE from select_database(\"$which_database\")",300);
-  return FALSE;
-}
-
 function connect_to_mysql_database($mysqlstuff=FALSE)
 {
   debug_msg("20199313T1347Z: function connect_to_mysql_database(\"\$mysqlstuff\") START:",1000);
