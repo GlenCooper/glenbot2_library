@@ -23,7 +23,7 @@
 # 20190303T0634Z: things calmed down with the CPU.  Blockstack isn't entirely fishy... but not worth my time now.  Maybe someday.  Sticking with keybase.glencooper.com for now
 # 20190303T1547Z: making push.sh work a little harder!
 # 20190311T0341Z: thinking of trying to use MySQL again...
-# 20190313T0133Z: considering using Lychee as the open-source photo manager, and updating this file just to show signs of life.
+# 20190313T0133Z: considering using Lychee (https://lychee.electerious.com/) as the open-source photo manager, and updating this file just to show signs of life.
 #
 
 if(!isset($colors))
