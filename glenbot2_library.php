@@ -1546,7 +1546,7 @@ function connect_to_mysql_database($mysqlstuff=FALSE)
 {
   debug_msg("20199313T1347Z: function connect_to_mysql_database(\"\$mysqlstuff\") START:",1000);
   debug_msg("20081001T1546Z: what does the \$mysqlstuff array look like?",2000);  # WARNING: Will echo pass in CLEARTEXT
-  debug_arr($mysqlstuff,'mysqlstuff');
+  debug_arr($mysqlstuff,'mysqlstuff',2000);
   if(!($mysqlstuff))
   {
     echo "<font color=\"red\">FATAL ERROR: \$mysqlstuff is FALSE!</font><br>\n";
