@@ -1560,7 +1560,6 @@ function connect_to_mysql_database()
     $mysql_user = '';
     $mysql_pass = '';
   }
-  debug_msg("20081001T1545Z: \$num_args is not greater than 1.",500);
   debug_msg("20060222T2257Z: function connect_to_mysql_database(\"\$mysqlstuff\") START:",1000);
   if(!($mysqlstuff))
   {
@@ -1570,17 +1569,36 @@ function connect_to_mysql_database()
     return;
   }
   debug_msg("20060222T2258Z: attempting mysql_connect() using \$mysqlstuff login credentials...",1000);
-  $db = @mysql_connect($mysqlstuff['host'],$mysqlstuff['user'],$mysqlstuff['pass']);   # Modified 20160326T1747Z to hush the errors if/when they occur
-  if($db)
+  $hush = FALSE;
+  if($hush)
   {
-    debug_msg("20060222T2259Z: \$db is TRUE",1000);
-    debug_msg("20060222T2333Z: returning \$db from connect_to_mysql_database()",1000);
-    return($db);
+    $db = @mysql_connect($mysqlstuff['host'],$mysqlstuff['user'],$mysqlstuff['pass']);   # Modified 20160326T1747Z to hush the errors if/when they occur
+    if($db)
+    {
+      debug_msg("20060222T2259Z: \$db is TRUE",1000);
+      debug_msg("20060222T2333Z: returning \$db from connect_to_mysql_database()",1000);
+      return($db);
+    }
+    else
+    {
+      debug_msg("20060222T2300Z: \$db is FALSE",1000);
+      return false;
+    }
   }
   else
   {
-    debug_msg("20060222T2300Z: \$db is FALSE",1000);
-    return false;
+    $db = mysql_connect($mysqlstuff['host'],$mysqlstuff['user'],$mysqlstuff['pass']);   # Modified 20160326T1747Z to hush the errors if/when they occur
+    if($db)
+    {
+      debug_msg("20190313T1236Z: \$db is TRUE",1000);
+      debug_msg("20190313T1237Z: returning \$db from connect_to_mysql_database()",1000);
+      return($db);
+    }
+    else
+    {
+      debug_msg("20190313T1238Z: \$db is FALSE",1000);
+      return false;
+    }
   }
 }
 
