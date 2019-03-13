@@ -23,8 +23,6 @@
 # 20190303T0634Z: things calmed down with the CPU.  Blockstack isn't entirely fishy... but not worth my time now.  Maybe someday.  Sticking with keybase.glencooper.com for now
 # 20190303T1547Z: making push.sh work a little harder!
 # 20190311T0341Z: thinking of trying to use MySQL again...
-# 20190313T0133Z: considering using Lychee (https://lychee.electerious.com/) as the open-source photo manager, and updating this file just to show signs of life.
-# 20190313T0711Z: not gonna use Lychee because I don't like the way it truncates the titles to 30 characters.  I wasted time trying to figure out how to fix.
 #
 
 if(!isset($colors))
@@ -751,14 +749,14 @@ function list_of_files_in_directory()
       if(is_array(func_get_arg(9)))
       {
         $match_on_patterns = func_get_arg(9);
-        debug_msg("201503271650: what does the \$match_on_patterns array look like?");
+        debug_msg("20150327T1650Z: what does the \$match_on_patterns array look like?");
         debug_arr($match_on_patterns,'match_on_patterns');
       }
     }
   }
   $debug_msg.=") START";
   debug_msg($debug_msg,100);
-  debug_msg("200602081419: \$dir = \"$dir\"");
+  debug_msg("20060208T1419Z: \$dir = \"$dir\"");
   
   # make sure the $dir ends with a '/'.  If not, add it.
   $lastchar = $dir[strlen($dir)-1];
@@ -768,9 +766,9 @@ function list_of_files_in_directory()
   }
   else
   {
-    debug_msg("200705311905: \$dir did not end with a slash, so one has been added.");
+    debug_msg("20070531T1905Z: \$dir did not end with a slash, so one has been added.");
     $dir = $dir.'/';
-    debug_msg("200602081421: \$dir is now \"$dir\".");
+    debug_msg("20060208T1421Z: \$dir is now \"$dir\".");
   }
 
   $files = array();
@@ -859,7 +857,7 @@ function list_of_files_in_directory()
         $timestamped[$filename] = filemtime($full_filename);
       }
       arsort($timestamped);  # sort array in reverse order and maintain index association
-      debug_msg("201503271715: what does the \$timestamped array look like?");
+      debug_msg("20150327T1715Z: what does the \$timestamped array look like?");
       debug_arr($timestamped,'timestamped');
       $files = array();
       foreach($timestamped as $filename => $modified_timestamp)
@@ -891,18 +889,19 @@ function list_of_files_in_directory()
     if($only_count_of_files_in_dir)
     {
       $count_of_files = count($files);
-      debug_msg("200704261910: \$count_of_files = \"$count_of_files\"");
+      debug_msg("20070426T1910Z: \$count_of_files = \"$count_of_files\"");
       return $count_of_files;
     }
     else
     {
-      debug_msg("200510202147: what does the \$files array look like?",500);
+      debug_msg("20051020T2147Z: what does the \$files array look like?",500);
       debug_arr($files,'files',500);
-      debug_msg("200510202204: returning \$files from list_of_files_in_directory().",1000);
+      debug_msg("20051020T2204Z: returning \$files from list_of_files_in_directory().",1000);
       return $files;
     }
   }
 }
+
 function run_command($cmd,$split_into_lines=FALSE,$silent_mode=FALSE,$remove_blank_lines=FALSE)
 {
   # this function runs a command ($cmd).
