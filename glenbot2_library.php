@@ -23,7 +23,7 @@
 # 20190303T0634Z: things calmed down with the CPU.  Blockstack isn't entirely fishy... but not worth my time now.  Maybe someday.  Sticking with keybase.glencooper.com for now
 # 20190303T1547Z: making push.sh work a little harder!
 # 20190311T0341Z: thinking of trying to use MySQL again...
-# 20190313T1003Z: getting very close to trying to touch a MySQL database again, after watching a live Tone Vays on YouTube.  I hope I get to meet Tone some day.
+# 20190313T1003Z: About to touch a MySQL database again, after watching Tone Vays live on YouTube (from Live from Token2049 in Hong Kong).  I hope I get to meet Tone some day.
 #
 
 if(!isset($colors))
