@@ -24,6 +24,7 @@
 # 20190303T1547Z: making push.sh work a little harder!
 # 20190311T0341Z: thinking of trying to use MySQL again...
 # 20190313T1003Z: About to touch a MySQL database again, after watching Tone Vays live on YouTube (from Live from Token2049 in Hong Kong).  I hope I get to meet Tone some day.
+# 20190323T0410Z: built another subdomain recently; lnd.glencooper.com
 #
 
 if(!isset($colors))
@@ -1324,7 +1325,7 @@ function newest_file()
 function ip2bin($ip)
 {
   # Converts an IP Address to binary representation.
-  # by Glen Cooper, www.GlenCooper.com
+  # by Glen Cooper, GlenCooper.com
   if(preg_match("/^(\d+)\.(\d+)\.(\d+)\.(\d+)$/",$ip,$hit))
   {
     $bin_octet1_short = decbin($hit[1]);
@@ -1336,7 +1337,7 @@ function ip2bin($ip)
     $bin_octet4_short = decbin($hit[4]);
     $bin_octet4_long = substr("00000000",0,8 - strlen($bin_octet4_short)).$bin_octet4_short;
     $final_answer = $bin_octet1_long.'.'.$bin_octet2_long.'.'.$bin_octet3_long.'.'.$bin_octet4_long;
-    #debug_msg("201007131552: \$final_answer = \"$final_answer\"");
+    #debug_msg("20100713T1552Z: \$final_answer = \"$final_answer\"");
     return $final_answer;
   }
 }
@@ -1345,11 +1346,11 @@ function error_message($msg,$abort_with_pointcode=FALSE)
 {
   global $colors;
   $red = $colors['red'];
-  debug_msg("201308301203: function error_message(\"$msg\",\"$abort_with_pointcode\" START:");
-  debug_msg("201308301213: next line is if(is_command_line_version())...");
+  debug_msg("2013083T01203Z: function error_message(\"$msg\",\"$abort_with_pointcode\" START:");
+  debug_msg("2013083T01213Z: next line is if(is_command_line_version())...");
   if(is_command_line_version())
   {
-    debug_msg("201308301214: is_command_line_version() is TRUE");
+    debug_msg("20130830T1214Z: is_command_line_version() is TRUE");
     echocolor("$msg\n",'red');
     if($abort_with_pointcode)
     {
@@ -1358,12 +1359,12 @@ function error_message($msg,$abort_with_pointcode=FALSE)
   }
   else
   {
-    debug_msg("201308301214: is_command_line_version() is FALSE");
+    debug_msg("20130830T1214Z: is_command_line_version() is FALSE");
     ech("<font color=\"$red\">$msg</font><br>\n");
     if($abort_with_pointcode)
     {
-      debug_msg("201308301145: \$abort_with_pointcode is TRUE");
-      debug_msg("201308301146: \$abort_with_pointcode = \"$abort_with_pointcode\"");
+      debug_msg("20130830T1145Z: \$abort_with_pointcode is TRUE");
+      debug_msg("20130830T1146Z: \$abort_with_pointcode = \"$abort_with_pointcode\"");
       debug_msg("201308301200: next line will call script_abort(\"$abort_with_pointcode\")...");
       script_abort($abort_with_pointcode);
     }
@@ -1477,17 +1478,20 @@ function filename_part_of_pathname($pathname)
   # This function will return only the filename part of the given pathname.
   # For example, if you were to pass it "/tmp/somepath/somefile", it would
   # return "somefile".
+  #
+  # 20190325T0414Z: I'm just scanning thru this old code, looking for anything that can be blown away.  This function seem suspect.  Seems like there should be
+  # a more efficient way than this.  I just don't know what it is.  Well anyway, at this point, this whole library is beginning to become questionable.
   $parts = preg_split("/\//",$pathname);
   $parts_count = count($parts);
-  debug_msg("200602081515: \$parts_count = $parts_count",1000);
+  debug_msg("20060208T1515Z: \$parts_count = $parts_count",1000);
   $filename = $parts[$parts_count-1];
-  debug_msg("200602081519: \$filename = \"$filename\"",1000);
+  debug_msg("20060208T1519Z: \$filename = \"$filename\"",1000);
   return $filename;
 }
 
 function connect_to_mysql_database($mysqlstuff=FALSE)
 {
-  debug_msg("20199313T1347Z: function connect_to_mysql_database(\"\$mysqlstuff\") START:",1000);
+  debug_msg("20190313T1347Z: function connect_to_mysql_database(\"\$mysqlstuff\") START:",1000);
   debug_msg("20081001T1546Z: what does the \$mysqlstuff array look like?",2000);  # WARNING: Will echo pass in CLEARTEXT
   debug_arr($mysqlstuff,'mysqlstuff',2000);
   if(!($mysqlstuff))
