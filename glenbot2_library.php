@@ -24,7 +24,7 @@
 # 20190303T1547Z: making push.sh work a little harder!
 # 20190311T0341Z: thinking of trying to use MySQL again...
 # 20190313T1003Z: About to touch a MySQL database again, after watching Tone Vays live on YouTube (from Live from Token2049 in Hong Kong).  I hope I get to meet Tone some day.
-# 20190323T0410Z: built another subdomain recently; lnd.glencooper.com
+# 20190323T0410Z: I built another subdomain recently; https://lnd.glencooper.com
 #
 
 if(!isset($colors))
