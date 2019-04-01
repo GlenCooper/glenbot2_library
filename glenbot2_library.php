@@ -25,6 +25,7 @@
 # 20190311T0341Z: thinking of trying to use MySQL again...
 # 20190313T1003Z: About to touch a MySQL database again, after watching Tone Vays live on YouTube (from Live from Token2049 in Hong Kong).  I hope I get to meet Tone some day.
 # 20190323T0410Z: I built another subdomain recently; https://lnd.glencooper.com
+# 20190401T1745Z: built another subdomain, and added a tawk.to chatbox to it: https://truth.glencooper.com/
 #
 
 if(!isset($colors))
@@ -1595,55 +1596,13 @@ function sleeping_seconds($seconds,$script_name,$skip_record_glenbot_alive=FALSE
   }
 }
 
-function send_admin_email($txt,$pointcode=FALSE,$script_name,$email_to=FALSE,$no_encountered_line=FALSE)
-{
-  $hostname = define_hostname_short();
-  $args_string = '';
-  echocolor("Sending admin email... ",'light_red');
-  $temp_filename = tempnam('/tmp/','temp_file_');
-  debug_msg("201208241320: \$temp_filename = \"$temp_filename\"");
-  $email_lines = array();
-  if(!$no_encountered_line)
-  {
-    $email_lines[] = "The $script_name script running on $hostname encountered an error.";
-    $email_lines[] = '';
-  }
-  foreach($txt as $ord => $line)
-  {
-    $email_lines[] = "$line\n";
-  }
-  if($handle = fopen($temp_filename,'w'))
-  {
-    foreach($email_lines as $ord => $email_line)
-    {
-      if(fwrite($handle,"$email_line\r\n")===FALSE)
-      {
-        echocolor("ERROR: Problem occurred when trying to write line to $temp_filename!\n",'light_red');
-      }
-    }
-  }
-  fclose($handle);
-  $subject = "$script_name Error";
-  if($pointcode)
-  {
-    $subject.= ", POINTCODE: $pointcode";
-  }
-  if(!$email_to)
-  {
-    $email_to = 'Glen.Cooper@tnsi.com';
-  }
-  $output = run_command("php -q /home/gcooper/shared/scripts/php/sendemail/sendemail.php -to=\"$email_to\" -from=\"$script_name Script <Glen.Cooper@tnsi.com>\" -subject=\"$subject\" -bodyfile=\"$temp_filename\"",1,1);
-  unlink($temp_filename);
-  echocolor("Done.\n",'light_red');
-}
-
 function convert_options_to_hidden_form_values($options)
 {
   # this function will convert $options, the URL options passed at runtime, to hidden form values meant to
   # be passed back to the script via a html form using method = POST.  The script will return an array of
   # <input type=hidden> strings so they can be echo'ed within a <form method=POST>.
-  debug_msg("200601301910: function add_hidden_post_form_values(\"\$options\") START");
-  debug_msg("200601301909: \$options = \"$options\"");
+  debug_msg("20060130T1910Z: function add_hidden_post_form_values(\"\$options\") START");
+  debug_msg("20060130T1909Z: \$options = \"$options\"");
   if(!($options))
   {
     return false;
@@ -1651,31 +1610,23 @@ function convert_options_to_hidden_form_values($options)
   $option_pairs = explode('&',$options);
   $i = 0;
   $option_pairs_count = count($option_pairs);
-  debug_msg("200601301915: \$option_pairs_count = \"$option_pairs_count\"");
-  debug_msg("200601301918: what does \$option_pairs look like?");
+  debug_msg("20060130T1915Z: \$option_pairs_count = \"$option_pairs_count\"");
+  debug_msg("20060130T1918Z: what does \$option_pairs look like?");
   debug_arr($option_pairs,'option_pairs');
   while($i<$option_pairs_count)
   {
     $current_pair = $option_pairs[$i];
-    debug_msg("200601301920: \$current_pair = \"$current_pair\"");
+    debug_msg("20060130T1920Z: \$current_pair = \"$current_pair\"");
     $option_pair = split('=',$current_pair);
     $string = "<input type=\"hidden\" name=\"".$option_pair[0]."\" value=\"".$option_pair[1]."\">\n";
     $output_lines[] = $string;
     $i++;
   }
   $output_lines_count = count($output_lines);
-  debug_msg("200601301919: \$output_lines_count = \"$output_lines_count\"");
-  debug_msg("200601301914: what does \$output_lines look like?");
+  debug_msg("20060130T1919Z: \$output_lines_count = \"$output_lines_count\"");
+  debug_msg("20060130T1914Z: what does \$output_lines look like?");
   debug_arr($output_lines,'output_lines',NULL,1);
   return $output_lines;
-}
-
-function remedy_timestamp($timestamp)
-{
-  # This function takes a unix $timestamp value and converts it to the same
-  # human readable datetime format that Remedy shows in ARUser.
-  $remedy_timestamp = date("m/j/Y h:i:s A",$timestamp);
-  return $remedy_timestamp;
 }
 
 function define_log_filename($path='')
