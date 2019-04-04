@@ -2479,13 +2479,19 @@ function tawkto()
   // When adding a new "property" within their Admin interface, they provide a snippet of code that should be inserted on the page you want the chatbox on.
   // A quick way to do it is to save that code snippet into a file called "tawk.txt" and place that file in the same directory as the php file that calls this function.
   // This function will likely be rewritten/enhanced in the future to utilize a database of some sort.  For now, this is better than adding their code to my pages.
-  if(file_exists('tawk.txt'))
+  $tawk_filename = 'tawk.txt';
+  if(file_exists($tawk_filename))
   {
+    debug_msg("20190404T0745Z: file_exists($tawk_filename) is TRUE");
     $tawk_lines = file('tawk.txt');
     foreach($tawk_lines as $tawk_line)
     {
       echo "$tawk_line\n";
     }
+  }
+  else
+  {
+    debug_msg("20190404T0746Z: file_exists($tawk_filename) is FALSE");
   }
 }
 
