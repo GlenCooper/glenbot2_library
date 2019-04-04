@@ -26,6 +26,7 @@
 # 20190313T1003Z: About to touch a MySQL database again, after watching Tone Vays live on YouTube (from Live from Token2049 in Hong Kong).  I hope I get to meet Tone some day.
 # 20190323T0410Z: I built another subdomain recently; https://lnd.glencooper.com
 # 20190401T1745Z: built another subdomain, and added a tawk.to chatbox to it: https://truth.glencooper.com/
+# 20190404T0037Z: added tawkto function
 #
 
 if(!isset($colors))
@@ -2470,6 +2471,22 @@ function funny_wait()
   $chosen = $msgs[0];
   debug_msg("20150504T2317Z: \$chosen = \"$chosen\"");
   return $chosen;
+}
+
+function tawkto()
+{
+  // This function quickly adds a chatbox provided by https://www.tawk.to
+  // When adding a new "property" within their Admin interface, they provide a snippet of code that should be inserted on the page you want the chatbox on.
+  // A quick way to do it is to save that code snippet into a file called "tawk.txt" and place that file in the same directory as the php file that calls this function.
+  // This function will likely be rewritten/enhanced in the future to utilize a database of some sort.  For now, this is better than adding their code to my pages.
+  if(file_exists('tawk.txt'))
+  {
+    $tawk_lines = file('tawk.txt');
+    foreach($tawk_lines as $tawk_line)
+    {
+      echo "$tawk_line\n";
+    }
+  }
 }
 
 ?>
