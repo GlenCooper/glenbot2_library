@@ -1567,6 +1567,47 @@ function is_base64_encoded($data)
   }
 }
 
+function record_glenbot2_alive($task_name='missingtaskname')
+{
+  $script_name = basename(__FILE__);
+  $servername = $_SERVER['SERVER_NAME'];
+  talk_to_db();
+  $alive_table_name = 'alive';
+  $sql = "SELECT * FROM `$alive_table_name` WHERE scriptname=\"$script_name\" AND byscriptname=\"$script_name\"";
+  $result = mysql_query($sql);
+  if($result)
+  {
+    debug_msg("20190413T191610Z: \$result is TRUE");
+  }
+  else
+  {
+    debug_msg("20190413T191657Z: \$result is FALSE");
+  }
+  $num_rows = mysql_num_rows($result);
+  debug_msg("20190413T191828Z: \$num_rows = \"$num_rows\"");
+  if($num_rows)
+  {
+    $now = gmdate('Y-m-d H:i:s');
+    $sql = "UPDATE $alive_table_name SET lastalive=\"$now\"";
+  }
+  else
+  {
+    $sql = "INSERT INTO `alive` (`scriptname`, `lastalive`, `byscriptname`) VALUES ('pleasework.php', '2019-04-13 19:03:01', 'manual')";
+  }
+  debug_msg("20190413T1930Z: \sql= $sql;");
+  unset($result);
+  $result = mysql_query($sql);
+  if($result)
+  {
+    debug_msg("20190413T193125Z: \$result is TRUE");
+  }
+  else
+  {
+    debug_msg("20190413T193159Z: \$result is FALSE");
+    return false;
+  }
+}
+
 function sleeping_seconds($seconds,$script_name,$skip_record_glenbot_alive=FALSE)
 {
   $mypid = getmypid();
