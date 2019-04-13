@@ -27,6 +27,7 @@
 # 20190323T0410Z: I built another subdomain recently; https://lnd.glencooper.com
 # 20190401T1745Z: built another subdomain, and added a tawk.to chatbox to it: https://truth.glencooper.com/
 # 20190404T0037Z: added tawkto function
+# 20190413T1711Z: dealing with a lot of shitty health issues lately, but still pushing onward
 #
 
 if(!isset($colors))
@@ -1523,11 +1524,6 @@ function connect_to_mysql_database($mysqlstuff=FALSE)
   {
     debug_msg("20190313T1442Z: here we go...");
     $mysqli = mysqli_connect($mysqlstuff['host'],$mysqlstuff['user'],$mysqlstuff['pass'],$mysqlstuff['database']);
-    debug_msg("20190313T1619Z: if the mysql connector is doing what it's supposed to do, the above should look good (with a debug_on value of 2000).  WARNING: CLEARTEXT!");
-    # 20190213T1306Z: figured out something...
-    # mrbtc@oberon:/var/www/cryqr.com/html$ tail -f /var/log/apache2/error.log
-    # [Wed Mar 13 08:27:09.040983 2019] [proxy_fcgi:error] [pid 19384:tid 140500065552128] [client 172.98.67.52:35658] AH01071: Got error 'PHP message: PHP Fatal error:  Uncaught Error: Call to undefined function mysql_connect() in /var/www/cryqr.com/html/glenbot2_library.txt:1573\nStack trace:\n#0 /var/www/cryqr.com/html/rd.php(51): connect_to_mysql_database(Array)\n#1 /var/www/cryqr.com/html/rd.php(10): talk_to_db()\n#2 /var/www/cryqr.com/html/rd.php(36): main_part()\n#3 {main}\n  thrown in /var/www/cryqr.com/html/glenbot2_library.txt on line 1573\n'
-    # ... did some research on http://php.net/mysql_connect ... and it led me to read up on http://php.net/mysqli
     if($mysqli)
     {
       debug_msg("20190313T1236Z: \$mysqli is TRUE",1000);
@@ -2493,6 +2489,21 @@ function tawkto()
   {
     debug_msg("20190404T0746Z: file_exists($tawk_filename) is FALSE");
   }
+}
+
+function talk_to_db()
+{
+  debug_msg("20190313T1002Z: hope I get to meet Tone Vays someday.");
+  $mysqlstuff = secret_db_stuff();
+  if($db = connect_to_mysql_database($mysqlstuff))
+  {
+          debug_msg("20190313T1226Z: yay!");
+  }
+  else
+  {
+    debug_msg("20190313T1226Z: \$db is FALSE");
+  }
+  debug_msg("20190313T1227Z: hmm....");
 }
 
 ?>
