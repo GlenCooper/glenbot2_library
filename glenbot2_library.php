@@ -1567,10 +1567,17 @@ function is_base64_encoded($data)
   }
 }
 
-function record_glenbot2_alive($task_name='missingtaskname')
+function record_glenbot2_alive($task_name='missingtaskname',$script_name='missingscriptname')
 {
   $script_name = basename(__FILE__);
-  $servername = $_SERVER['SERVER_NAME'];
+  if(isset($_SERVER['SERVER_NAME']))
+  {
+    $servername = $_SERVER['SERVER_NAME'];
+  }
+  else
+  {
+    $servername = 'some CLI host?';
+  }
   talk_to_db();
   $alive_table_name = 'alive';
   $sql = "SELECT * FROM `$alive_table_name` WHERE scriptname=\"$script_name\" AND byscriptname=\"$script_name\"";
