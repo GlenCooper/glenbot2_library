@@ -1495,8 +1495,6 @@ function filename_part_of_pathname($pathname)
 function connect_to_mysql_database($mysqlstuff=FALSE)
 {
   debug_msg("20190313T1347Z: function connect_to_mysql_database(\"\$mysqlstuff\") START:",1000);
-  debug_msg("20081001T1546Z: what does the \$mysqlstuff array look like?",2000);  # WARNING: Will echo pass in CLEARTEXT
-  debug_arr($mysqlstuff,'mysqlstuff',2000);
   if(!($mysqlstuff))
   {
     echo "<font color=\"red\">FATAL ERROR: \$mysqlstuff is FALSE!</font><br>\n";
