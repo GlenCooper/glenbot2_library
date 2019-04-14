@@ -1595,10 +1595,11 @@ function record_glenbot2_alive($task_name='missingtaskname',$script_name='missin
     debug_msg("20190413T191657Z: \$result is FALSE");
   }
   debug_msg("20190413T191828Z: \$num_rows = \"$num_rows\"");
+  $now = gmdate('Y-m-d H:i:s');
+  debug_msg("20190414T051909Z: \$now = \"$now\"");
   if($num_rows)
   {
     debug_msg("20190414T035814Z: \$num_rows is TRUE");
-    $now = gmdate('Y-m-d H:i:s');
     $sql = "UPDATE $alive_table_name SET lastalive=\"$now\" WHERE taskname=\"$task_name\" AND byscriptname=\"$script_name\"";
   }
   else
