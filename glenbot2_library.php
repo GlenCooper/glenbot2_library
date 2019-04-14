@@ -1584,15 +1584,16 @@ function record_glenbot2_alive($task_name='missingtaskname',$script_name='missin
   $sql = "SELECT * FROM `$alive_table_name` WHERE scriptname=\"$script_name\" AND byscriptname=\"$script_name\"";
   debug_msg("20190414T0357Z: \$sql = $sql;");
   $result = mysqli_query($sql);
+  $num_rows = FALSE;
   if($result)
   {
     debug_msg("20190413T191610Z: \$result is TRUE");
+    $num_rows = mysql_num_rows($result);
   }
   else
   {
     debug_msg("20190413T191657Z: \$result is FALSE");
   }
-  $num_rows = mysql_num_rows($result);
   debug_msg("20190413T191828Z: \$num_rows = \"$num_rows\"");
   if($num_rows)
   {
