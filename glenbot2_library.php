@@ -1579,7 +1579,7 @@ function record_glenbot2_alive($task_name='missingtaskname',$script_name='missin
   {
     $servername = 'some CLI host?';
   }
-  talk_to_db();
+  $db = talk_to_db();
   $alive_table_name = 'alive';
   $sql = "SELECT * FROM `$alive_table_name` WHERE taskname=\"$task_name\" AND byscriptname=\"$script_name\"";
   debug_msg("20190414T0357Z: \$sql = $sql;");
@@ -1608,8 +1608,8 @@ function record_glenbot2_alive($task_name='missingtaskname',$script_name='missin
   }
   debug_msg("20190413T1930Z: \$sql= $sql;");
   unset($result);
-  debug_msg("20190414T035918Z: next line is \$result = mysqli_query(\$sql)...");
-  $result = mysqli_query($sql);
+  debug_msg("20190414T035918Z: next line is \$result = mysqli_query(\$db,\$sql)...");
+  $result = mysqli_query($db,$sql);
   if($result)
   {
     debug_msg("20190413T193125Z: \$result is TRUE (\$result = \"$result\")");
@@ -2550,7 +2550,8 @@ function talk_to_db()
   $mysqlstuff = secret_db_stuff();
   if($db = connect_to_mysql_database($mysqlstuff))
   {
-          debug_msg("20190313T1226Z: \$db is TRUE (so we were able to connect to the database)");
+  	debug_msg("20190313T1226Z: \$db is TRUE (so we were able to connect to the database)");
+	return $db;
   }
   else
   {
