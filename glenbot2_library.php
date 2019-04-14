@@ -1599,7 +1599,7 @@ function record_glenbot2_alive($task_name='missingtaskname',$script_name='missin
   if($num_rows)
   {
     debug_msg("20190414T035814Z: \$num_rows is TRUE");
-    $sql = "UPDATE $alive_table_name SET lastalive=\"$now\" WHERE taskname=\"$task_name\" AND byscriptname=\"$script_name\"";
+    $sql = "UPDATE $alive_table_name SET `lastalive`=\"$now\" WHERE `taskname`=\"$task_name\" AND `byscriptname`=\"$script_name\"";
   }
   else
   {
