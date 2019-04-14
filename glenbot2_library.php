@@ -1599,12 +1599,12 @@ function record_glenbot2_alive($task_name='missingtaskname',$script_name='missin
   {
     debug_msg("20190414T035814Z: \$num_rows is TRUE");
     $now = gmdate('Y-m-d H:i:s');
-    $sql = "UPDATE $alive_table_name SET lastalive=\"$now\"";
+    $sql = "UPDATE $alive_table_name SET lastalive=\"$now\" WHERE taskname=\"$task_name\" AND byscriptname=\"$script_name\"";
   }
   else
   {
     debug_msg("20190414T035814Z: \$num_rows is FALSE");
-    $sql = "INSERT INTO `alive` (`id`, `taskname`, `lastalive`, `byscriptname`) VALUES (NULL, '$task_name', '2019-04-13 19:03:01', '$script_name')";
+    $sql = "INSERT INTO `alive` (`id`, `taskname`, `lastalive`, `byscriptname`) VALUES (NULL, '$task_name', '$now', '$script_name')";
   }
   debug_msg("20190413T1930Z: \$sql= $sql;");
   unset($result);
