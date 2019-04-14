@@ -1604,7 +1604,7 @@ function record_glenbot2_alive($task_name='missingtaskname',$script_name='missin
   else
   {
     debug_msg("20190414T035814Z: \$num_rows is FALSE");
-    $sql = "INSERT INTO `alive` (`taskname`, `lastalive`, `byscriptname`) VALUES ('$task_name', '2019-04-13 19:03:01', '$script_name')";
+    $sql = "INSERT INTO `alive` (`id`, `taskname`, `lastalive`, `byscriptname`) VALUES (NULL, '$task_name', '2019-04-13 19:03:01', '$script_name')";
   }
   debug_msg("20190413T1930Z: \$sql= $sql;");
   unset($result);
