@@ -1583,7 +1583,7 @@ function record_glenbot2_alive($task_name='missingtaskname',$script_name='missin
   $alive_table_name = 'alive';
   $sql = "SELECT * FROM `$alive_table_name` WHERE scriptname=\"$script_name\" AND byscriptname=\"$script_name\"";
   debug_msg("20190414T0357Z: \$sql = $sql;");
-  $result = mysql_query($sql);
+  $result = mysqli_query($sql);
   if($result)
   {
     debug_msg("20190413T191610Z: \$result is TRUE");
