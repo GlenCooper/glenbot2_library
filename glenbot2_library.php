@@ -1569,6 +1569,7 @@ function is_base64_encoded($data)
 
 function record_glenbot2_alive($task_name='missingtaskname',$script_name='missingscriptname')
 {
+  debug_msg("20190414T0323Z: function record_glenbot2_alive(\"$taskname\",\"$script_name\") START:\n");
   $script_name = basename(__FILE__);
   if(isset($_SERVER['SERVER_NAME']))
   {
@@ -2543,13 +2544,12 @@ function talk_to_db()
   $mysqlstuff = secret_db_stuff();
   if($db = connect_to_mysql_database($mysqlstuff))
   {
-          debug_msg("20190313T1226Z: yay!");
+          debug_msg("20190313T1226Z: \$db is TRUE (so we were able to connect to the database)");
   }
   else
   {
     debug_msg("20190313T1226Z: \$db is FALSE");
   }
-  debug_msg("20190313T1227Z: hmm....");
 }
 
 ?>
