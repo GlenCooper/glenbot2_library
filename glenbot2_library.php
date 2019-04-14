@@ -1587,7 +1587,7 @@ function record_glenbot2_alive($task_name='missingtaskname',$script_name='missin
   if($result)
   {
     debug_msg("20190413T191610Z: \$result is TRUE");
-    $num_rows = mysql_num_rows($result);
+    $num_rows = mysqli_num_rows($result);
   }
   else
   {
@@ -1972,66 +1972,6 @@ function ech()
       echo $text;
       flush();
     }
-  }
-}
-
-function tripwire($pointcode)
-{
-  global $mysqlstuff,$glob;
-  debug_msg("20060528T0319Z: function tripwire(\"$pointcode\") START");
-  $tripwire_table_name = $glob['tripwire_table_name'];
-  debug_msg("20150115T1050Z: what does the \$mysqlstuff array look like?",1000);
-  debug_arr($mysqlstuff,'mysqlstuff',1000);
-  if(!(connect_to_mysql_database($mysqlstuff)))
-  {
-    return false;
-  }
-  if(!(select_database("ipdesk")))
-  {
-    debug_msg("20060417T2107Z: returning false",500);
-    return false;
-  }
-
-  # if the table doesn't already exist, create it by doing:
-  # CREATE TABLE `tripwire` (
-  # `pointcode` BIGINT NOT NULL ,
-  # `count` BIGINT NOT NULL ,
-  # PRIMARY KEY ( `pointcode` )
-  # );
-
-  $sql = "SELECT * FROM $tripwire_table_name WHERE pointcode=\"$pointcode\"";
-  debug_msg("20060528T0308Z: \$sql= $sql");
-  $result = mysql_query($sql);
-  if($result)
-  {
-    debug_msg("20060528T0309Z: \$result is TRUE");
-  }
-  else
-  {
-    debug_msg("20060528T0310Z: \$result is FALSE");
-    return false;
-  }
-  $num_rows = mysql_num_rows($result);
-  debug_msg("20060528T0311Z: \$num_rows = \"$num_rows\"");
-  if($num_rows)
-  {
-    $sql = "UPDATE $tripwire_table_name SET count=count+1 WHERE pointcode=\"$pointcode\"";
-  }
-  else
-  {
-    $sql = "INSERT INTO $tripwire_table_name VALUES (\"$pointcode\",1)";
-  }
-  debug_msg("20060428T0341Z: \$sql= $sql;");
-  unset($result);
-  $result = mysql_query($sql);
-  if($result)
-  {
-    debug_msg("20060528T0339Z: \$result is TRUE");
-  }
-  else
-  {
-    debug_msg("20060528T0340Z: \$result is FALSE");
-    return false;
   }
 }
 
