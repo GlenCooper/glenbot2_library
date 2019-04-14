@@ -1570,7 +1570,6 @@ function is_base64_encoded($data)
 function record_glenbot2_alive($task_name='missingtaskname',$script_name='missingscriptname')
 {
   debug_msg("20190414T0323Z: function record_glenbot2_alive(\"$task_name\",\"$script_name\") START:\n");
-  $script_name = basename(__FILE__);
   if(isset($_SERVER['SERVER_NAME']))
   {
     $servername = $_SERVER['SERVER_NAME'];
