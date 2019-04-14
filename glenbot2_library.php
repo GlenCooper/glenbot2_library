@@ -1581,7 +1581,7 @@ function record_glenbot2_alive($task_name='missingtaskname',$script_name='missin
   }
   $db = talk_to_db();
   $alive_table_name = 'alive';
-  $sql = "SELECT * FROM `$alive_table_name` WHERE taskname LIKE \"$task_name\" AND byscriptname LIKE \"$script_name\"";
+  $sql = "SELECT * FROM `$alive_table_name` WHERE taskname = \"$task_name\" AND byscriptname = \"$script_name\"";
   debug_msg("20190414T0357Z: \$sql = $sql;");
   $result = mysqli_query($sql);
   $num_rows = FALSE;
