@@ -1608,8 +1608,8 @@ function record_glenbot2_alive($task_name='missingtaskname',$script_name='missin
   }
   debug_msg("20190413T1930Z: \sql= $sql;");
   unset($result);
-  debug_msg("20190414T035918Z: next line is \$result = mysql_query(\$sql)...");
-  $result = mysql_query($sql);
+  debug_msg("20190414T035918Z: next line is \$result = mysqli_query(\$sql)...");
+  $result = mysqli_query($sql);
   if($result)
   {
     debug_msg("20190413T193125Z: \$result is TRUE (\$result = \"$result\")");
