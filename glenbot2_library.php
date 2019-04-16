@@ -2490,7 +2490,7 @@ function talk_to_db()
   $mysqlstuff = secret_db_stuff();
   if($db = connect_to_mysql_database($mysqlstuff))
   {
-  	debug_msg("20190313T1226Z: \$db is TRUE (so we were able to connect to the database)");
+  	debug_msg("20190313T1226Z: \$db is TRUE (so we were able to connect to the database)".  Returning \$db...);
 	return $db;
   }
   else
