@@ -17,7 +17,7 @@
 # 20190108T0506Z: built a new subdomain & webpage recently... since it was a historic moment in my life: https://lastdrink.glencooper.com/
 # 20190108T0928Z: converted a lot of the aliases over to a more easily updatable bash script, currently named "/home/mreth/bin/mylib", an executable bash shell script
 # 20190108T1032Z: renamed /home/mreth/bin/mylib to /home/mreth/bin/mylib.sh, and made a symlink so simply typing "mylib" will still launch mylib.sh...
-# 20190118T0634Z: met 1MitchK
+# 20190118T0634Z: met bitcoin firstbits 1MitchK in real life
 # 20190204T0313Z: I'm still alive...
 # 20190215T0949Z: something smells fishy with blockstack browser Linux install... my CPU is SCREAMING ever since (a couple hours ago)
 # 20190303T0634Z: things calmed down with the CPU.  Blockstack isn't entirely fishy... but not worth my time now.  Maybe someday.  Sticking with keybase.glencooper.com for now
@@ -28,7 +28,8 @@
 # 20190401T1745Z: built another subdomain, and added a tawk.to chatbox to it: https://truth.glencooper.com/
 # 20190404T0037Z: added tawkto function
 # 20190413T1711Z: dealing with a lot of shitty health issues lately, but still pushing onward
-#
+# 20190416T1633Z: borrowing time_elapsed_string function from https://stackoverflow.com/questions/1416697/converting-timestamp-to-time-ago-in-php-e-g-1-day-ago-2-days-ago
+# 20190426T0932Z: struggling with ongoing health issues
 
 if(!isset($colors))
 {
@@ -2460,6 +2461,32 @@ function funny_wait()
   $chosen = $msgs[0];
   debug_msg("20150504T2317Z: \$chosen = \"$chosen\"");
   return $chosen;
+}
+
+function time_elapsed_string($datetime, $full = false)
+{
+  $now = new DateTime;
+  $ago = new DateTime($datetime);
+  $diff = $now->diff($ago);
+
+  $diff->w = floor($diff->d / 7);
+  $diff->d -= $diff->w * 7;
+
+  $string = array('y' => 'year','m' => 'month','w' => 'week','d' => 'day','h' => 'hour','i' => 'minute','s' => 'second',);
+  foreach($string as $k => &$v)
+  {
+    if($diff->$k)
+    {
+       $v = $diff->$k.' '.$v.($diff->$k > 1 ? 's' : '');
+    }
+    else
+    {
+      unset($string[$k]);
+    }
+  }
+
+  if (!$full) $string = array_slice($string, 0, 1);
+  return $string ? implode(', ', $string) . ' ago' : 'just now';
 }
 
 function tawkto()
