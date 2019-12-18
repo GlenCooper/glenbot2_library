@@ -30,6 +30,7 @@
 # 20190413T1711Z: dealing with a lot of shitty health issues lately, but still pushing onward
 # 20190416T1633Z: borrowing time_elapsed_string function from https://stackoverflow.com/questions/1416697/converting-timestamp-to-time-ago-in-php-e-g-1-day-ago-2-days-ago
 # 20190426T0932Z: struggling with ongoing health issues
+# 20190918T0524Z: constant health problems, too many to list here.  Primarily frequent migraines & vertigo, and many relationship problems with Natalie
 
 if(!isset($colors))
 {
@@ -480,6 +481,38 @@ if(!function_exists('define_hostname_short'))
     $hostname = $stuff[0];
     return $hostname;
   }
+}
+
+function current_pointcode($raw=FALSE)
+{
+  # Format of POINTCODES is:
+  # YYYYMMDDTHHMMSSZ
+  # See https://timestamps.glencooper.com/ for explanation of syntax
+  date_default_timezone_set('UTC');
+  $pointcode_pt1 = date('Ymd');
+  $pointcode_pt2 = date('His');
+  if($raw)
+  {
+    debug_msg("20181215T0540Z: \$raw is TRUE, so not adding the textual separators");
+    $pointcode = $pointcode_pt1 . $pointcode_pt2;
+  }
+  else
+  {
+    $pointcode = $pointcode_pt1 . 'T' . $pointcode_pt2 . 'Z';
+  }
+  debug_msg("20181206T032004Z: \$pointcode = \"$pointcode\"");
+  return $pointcode;
+}
+
+function tripwire($pointcode=FALSE)
+{
+  if(!$pointcode)
+  {
+    $pointcode = current_pointcode();
+    debug_msg("20191218T0531Z: \$pointcode = \"$pointcode\"");
+  }
+  # probably should have something here to send a push notification
+  script_abort($pointcode);
 }
 
 function script_aborted($pointcode)
