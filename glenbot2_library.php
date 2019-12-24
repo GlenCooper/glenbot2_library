@@ -30,7 +30,7 @@
 # 20190413T1711Z: dealing with a lot of shitty health issues lately, but still pushing onward
 # 20190416T1633Z: borrowing time_elapsed_string function from https://stackoverflow.com/questions/1416697/converting-timestamp-to-time-ago-in-php-e-g-1-day-ago-2-days-ago
 # 20190426T0932Z: struggling with ongoing health issues
-# 20190918T0524Z: constant health problems, too many to list here.  Primarily frequent migraines & vertigo, and many relationship problems with Natalie
+# 20190918T0524Z: constant health problems, too many to list here.  Primarily frequent migraines & vertigo, and relationship problems with Natalie
 
 if(!isset($colors))
 {
