@@ -31,6 +31,7 @@
 # 20190416T1633Z: borrowing time_elapsed_string function from https://stackoverflow.com/questions/1416697/converting-timestamp-to-time-ago-in-php-e-g-1-day-ago-2-days-ago
 # 20190426T0932Z: struggling with ongoing health issues
 # 20190918T0524Z: constant health problems, too many to list here.  Primarily frequent migraines & vertigo, and relationship problems with Natalie
+# 20200112T1110Z: wrote qrencode function
 
 if(!isset($colors))
 {
@@ -112,6 +113,15 @@ function convert_all_arr_elements_to_html_special($arr)
     }
   }
   return $new_arr;
+}
+
+if(!(function_exists('qrencode')))
+{
+  debug_msg("20200112T11118Z: looks like we can create a new fuction called qrencode here.");
+  function qrencode($target)
+  {
+    sleep(1);
+  }
 }
 
 function define_colors()
