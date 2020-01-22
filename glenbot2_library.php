@@ -32,6 +32,7 @@
 # 20190426T0932Z: struggling with ongoing health issues
 # 20190918T0524Z: constant health problems, too many to list here.  Primarily frequent migraines & vertigo, and relationship problems with Natalie
 # 20200112T1110Z: wrote qrencode function
+# 20200122T0420Z: trying to do anything productive, not having much luck yet...
 
 if(!isset($colors))
 {
@@ -120,7 +121,23 @@ if(!(function_exists('qrencode')))
   debug_msg("20200112T11118Z: looks like we can create a new fuction called qrencode here.");
   function qrencode($target)
   {
-    sleep(1);
+    // create curl resource
+    $ch = curl_init();
+
+    // this is a quick and dirty way of doing things.  this will fail if the destination website is inaccessible.  this should be tightened up at some point...
+    $url = 'qrenco.de/'.urlencode($target);
+    curl_setopt($ch, CURLOPT_URL, $url);
+
+    //return the transfer as a string
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+
+    // $output contains the output string
+    $output = curl_exec($ch);
+
+    // close curl resource to free up system resources
+    curl_close($ch);
+
+    return $output;
   }
 }
 
@@ -623,54 +640,6 @@ function any_time_javascript_header()
   echo "<script src=\"$jquery_path\"></script>\n";
   echo "<script src=\"$anytime_js_path\"></script>\n";
   echo "<script src=\"$sort_table_path\"></script>\n";
-}
-
-function select_all_and_copy_javascript_header_zeroclipboard()
-{
-  # NOTE: This function ABSOLUTELY REQUIRES that the ZeroClipboard.js file exists at http://nocweb.corp.tnsi.com/imps/scripts/lvcbuilder/ZeroClipboard.js
-  #                                 *** AND *** the ZeroClipboard.swf file exists at http://nocweb.corp.tnsi.com/imps/scripts/lvcbuilder/ZeroClipboard.swf
-  # As of 20120117T1649Z when this function was added, the ZeroClipboard website was online at http://code.google.com/p/zeroclipboard/
-  # In case it disappears, the original tarball for v1.0.7 is saved to nocweb:/var/www/html/imps/scripts/lvcbuilder/zeroclipboard-1.0.7.tar.gz
-  echo "<style type=\"text/css\">\n";
-  echo "  body { font-family:arial,sans-serif; font-size:9pt; }\n";
-  echo "  .my_clip_button { width:150px; text-align:center; border:1px solid black; background-color:#ccc; margin:10px; padding:10px; cursor:default; font-size:9pt; }\n";
-  echo "  .my_clip_button.hover { background-color:#eee; }\n";
-  echo "  .my_clip_button.active { background-color:#aaa; }\n";
-  echo "</style>\n";
-  echo "<script type=\"text/javascript\" src=\"http://nocweb.corp.tnsi.com/imps/scripts/lvcbuilder/ZeroClipboard.js\">\n";
-  echo "ZeroClipboard.setMoviePath( 'http://nocweb.corp.tnsi.com/imps/scripts/lvcbuilder/ZeroClipboard.swf' );\n";
-  echo "</script>\n";
-  echo "<script language=\"JavaScript\">\n";
-  echo "        var clip = null;\n";
-  echo "\n";
-  echo "        function $(id) { return document.getElementById(id); }\n";
-  echo "\n";
-  echo "        function init() {\n";
-  echo "                clip = new ZeroClipboard.Client();\n";
-  echo "                clip.setHandCursor( true );\n";
-  echo "\n";
-  echo "                clip.addEventListener('load', function (client) {\n";
-  echo "                        debugstr(\"Flash movie loaded and ready.\");\n";
-  echo "                });\n";
-  echo "\n";
-  echo "                clip.addEventListener('mouseOver', function (client) {\n";
-  echo "                        // update the text on mouse over\n";
-  echo "                        clip.setText( $('fe_text').value );\n";
-  echo "                });\n";
-  echo "\n";
-  echo "                clip.addEventListener('complete', function (client, text) {\n";
-  echo "                        debugstr(\"Copied text to clipboard: \" + text );\n";
-  echo "                });\n";
-  echo "\n";
-  echo "                clip.glue( 'd_clip_button', 'd_clip_container' );\n";
-  echo "        }\n";
-  echo "\n";
-  echo "        function debugstr(msg) {\n";
-  echo "                var p = document.createElement('p');\n";
-  echo "                p.innerHTML = msg;\n";
-  echo "                $('d_debug').appendChild(p);\n";
-  echo "        }\n";
-  echo "</script>\n";
 }
 
 function list_of_files_in_directory()
