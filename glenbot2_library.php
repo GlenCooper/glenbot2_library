@@ -33,6 +33,7 @@
 # 20190918T0524Z: constant health problems, too many to list here.  Primarily frequent migraines & vertigo, and relationship problems with Natalie
 # 20200112T1110Z: wrote qrencode function
 # 20200122T0420Z: trying to do anything productive, not having much luck yet...
+# 20201218T144805Z: my previous laptop that I was running this from, 1satoshi, has died.  Total ssd sudden failure; won't boot.  New laptop "mab" has been born.
 
 if(!isset($colors))
 {
