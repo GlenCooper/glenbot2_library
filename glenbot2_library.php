@@ -34,6 +34,7 @@
 # 20200112T1110Z: wrote qrencode function
 # 20200122T0420Z: trying to do anything productive, not having much luck yet...
 # 20201218T144805Z: my previous laptop that I was running this from, 1satoshi, has died.  Total ssd sudden failure; won't boot.  New laptop "mab" has been born.
+# 20210106T105753Z: Slowly recovering from a brutal hardware failure.  Migrated to mab
 
 if(!isset($colors))
 {
