@@ -927,7 +927,6 @@ function run_command($cmd,$split_into_lines=FALSE,$silent_mode=FALSE,$remove_bla
 {
   # this function runs a command ($cmd).
   global $colors;
-  $num_args = func_num_args(0);
   if(!($silent_mode))
   {
     echo "<li>Running command: \"<font color=\"".$colors['ltblue']."\">$cmd</font>\"... ";
