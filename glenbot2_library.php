@@ -36,6 +36,7 @@
 # 20201218T144805Z: my previous laptop that I was running this from, 1satoshi, has died.  Total ssd sudden failure; won't boot.  New laptop "mab" has been born.
 # 20210106T105753Z: Slowly recovering from a brutal hardware failure.  Migrated to mab
 # 20210108T085014Z: migraines suck!
+# 20210108T140427Z: I should look into investing in blackout blinds
 
 if(!isset($colors))
 {
