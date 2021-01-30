@@ -37,6 +37,8 @@
 # 20210106T105753Z: Slowly recovering from a brutal hardware failure.  Migrated to mab
 # 20210108T085014Z: migraines suck! I should look into investing in blackout blinds
 # 20210108T140427Z: I think I have "mylib" alias set up properly now to interact with github via ssh
+# 20210121T002104Z: why is this happening?  "PHP Fatal error:  Uncaught Error: Call to undefined function mysqli_connect() in /home/crystamped/glenbot2_library/glenbot2_library.php:1540"
+# 20210130T042002Z: I really need to get this going again.  Right now I'm living on a prayer that mab doesn't crap out.
 
 if(!isset($colors))
 {
@@ -1536,7 +1538,7 @@ function connect_to_mysql_database($mysqlstuff=FALSE)
   }
   else
   {
-    debug_msg("20190313T1442Z: here we go...");
+    debug_msg("20210130T041844Z: next line is mysqli_connect...");
     $mysqli = mysqli_connect($mysqlstuff['host'],$mysqlstuff['user'],$mysqlstuff['pass'],$mysqlstuff['database']);
     if($mysqli)
     {
