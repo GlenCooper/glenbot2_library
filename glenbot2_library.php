@@ -1538,7 +1538,7 @@ function connect_to_mysql_database($mysqlstuff=FALSE)
   }
   else
   {
-    debug_msg("20210130T041844Z: next line is mysqli_connect($mysqlstuff['host'],$mysqlstuff['user'],$mysqlstuff['pass'],$mysqlstuff['database'])...");
+    debug_msg("20210130T041844Z: next line is mysqli_connect(".$mysqlstuff['host'].",".$mysqlstuff['user'].",".$mysqlstuff['pass'].",".$mysqlstuff['database'].")...");
     $mysqli = mysqli_connect($mysqlstuff['host'],$mysqlstuff['user'],$mysqlstuff['pass'],$mysqlstuff['database']);
     if($mysqli)
     {
