@@ -2472,8 +2472,6 @@ function funny_wait()
   $msgs[] = 'Taking the red pill... ';
   $msgs[] = 'Kicking some @55... ';
   $msgs[] = 'Going through the wormhole... ';
-  $howmany = count($msgs);
-  debug_msg("20150504T2309Z: \$howmany = \"$howmany\"");
   shuffle($msgs);
   $chosen = $msgs[0];
   debug_msg("20150504T2317Z: \$chosen = \"$chosen\"");
