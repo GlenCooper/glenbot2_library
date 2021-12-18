@@ -39,6 +39,7 @@
 # 20210108T140427Z: I think I have "mylib" alias set up properly now to interact with github via ssh
 # 20210121T002104Z: why is this happening?  "PHP Fatal error:  Uncaught Error: Call to undefined function mysqli_connect() in /home/crystamped/glenbot2_library/glenbot2_library.php:1540"
 # 20210130T042002Z: I really need to get this going again.  Right now I'm living on a prayer that mab doesn't crap out.
+# 20211218T042636Z: changed "taking a red pill" to "taking an orange pill"
 
 if(!isset($colors))
 {
@@ -2469,7 +2470,7 @@ function funny_wait()
   $msgs[] = 'Nuking some White Castle burgers... ';
   $msgs[] = 'Dreaming within a dream... ';
   $msgs[] = 'Checking flux capacitor... ';
-  $msgs[] = 'Taking the red pill... ';
+  $msgs[] = 'Taking an orange pill... ';
   $msgs[] = 'Kicking some @55... ';
   $msgs[] = 'Going through the wormhole... ';
   shuffle($msgs);
