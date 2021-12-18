@@ -40,6 +40,7 @@
 # 20210121T002104Z: why is this happening?  "PHP Fatal error:  Uncaught Error: Call to undefined function mysqli_connect() in /home/crystamped/glenbot2_library/glenbot2_library.php:1540"
 # 20210130T042002Z: I really need to get this going again.  Right now I'm living on a prayer that mab doesn't crap out.
 # 20211218T042636Z: changed "taking a red pill" to "taking an orange pill"
+# 20211218T043324Z: added 2 more random funny wait msgs
 
 if(!isset($colors))
 {
@@ -2473,6 +2474,8 @@ function funny_wait()
   $msgs[] = 'Taking an orange pill... ';
   $msgs[] = 'Kicking some @55... ';
   $msgs[] = 'Going through the wormhole... ';
+  $msgs[] = 'Analyzing bitcoin charts... ';
+  $msgs[] = 'Going down the rabbit hole... ';
   shuffle($msgs);
   $chosen = $msgs[0];
   debug_msg("20150504T2317Z: \$chosen = \"$chosen\"");
