@@ -2458,7 +2458,7 @@ function funny_wait()
   $msgs[] = 'Surfing YouTube... ';
   $msgs[] = 'Preparing for battle... ';
   $msgs[] = 'Sharpening knives... ';
-  $msgs[] = 'Obtaining unobtanium... ';
+  $msgs[] = 'Obtaining unobtainium... ';
   $msgs[] = 'Licking my chops... ';
   $msgs[] = 'Chasing rainbows... ';
   $msgs[] = 'Entering trance-like state... ';
