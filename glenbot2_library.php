@@ -41,7 +41,7 @@
 # 20210130T042002Z: I really need to get this going again.  Right now I'm living on a prayer that mab doesn't crap out.
 # 20211218T042636Z: changed "taking a red pill" to "taking an orange pill"
 # 20211218T043324Z: added 2 more random funny wait msgs
-# 20230602T200337Z: does the push command work as it should?
+# 20230602T201719Z: deleted function unix_timestamp_of() since it was very old code and I saw nowhere it's being used anymore
 
 if(!isset($colors))
 {
@@ -2060,32 +2060,6 @@ function in_multi_array($search_str, $multi_array)
     }
   }
   return 0;
-}
-
-function unix_timestamp_of($time_string)
-{
-  debug_msg("20070410T1119Z: function unix_timestamp_of(\"$time_string\") START:",500);
-  if($time_string === 'Wed Dec 31 19:00:00 1969')
-  {
-    return 0;
-  }
-  $cmd = "php -q /home/gcooper/shared/scripts/php/timestamp/timestamp.php \"$time_string\"";
-  debug_msg("20070410T1203Z: \$cmd = \"$cmd\"",500);
-  $output = run_command($cmd,1,1);
-  debug_msg("20070410T1204Z: what does the \$output array look like?",100);
-  debug_arr($output,'output',100);
-  $pattern = "/^Unix Timestamp: (\d+)/";
-  foreach($output as $ord => $line)
-  {
-    if(preg_match($pattern,$line,$hit))
-    {
-      $unix_timestamp = $hit[1];
-      debug_msg("20070410T1120Z: returning \"$unix_timestamp\" from unix_timestamp_of(\"$time_string\")...",100);
-      return $unix_timestamp;
-    }
-  }
-  debug_msg("20070410T1204Z: ut oh, this can't be good...");
-  this_should_never_happen("20070410T1205Z");
 }
 
 function ordinal_suffix($value, $sup = 0)
