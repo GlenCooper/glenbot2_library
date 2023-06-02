@@ -41,6 +41,7 @@
 # 20210130T042002Z: I really need to get this going again.  Right now I'm living on a prayer that mab doesn't crap out.
 # 20211218T042636Z: changed "taking a red pill" to "taking an orange pill"
 # 20211218T043324Z: added 2 more random funny wait msgs
+# 20230602T200337Z: does the push command work as it should?
 
 if(!isset($colors))
 {
